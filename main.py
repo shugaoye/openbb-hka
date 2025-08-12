@@ -88,7 +88,7 @@ def get_widgets():
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Ticker to get 利润表 for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },
@@ -116,7 +116,8 @@ def get_widgets():
 @app.get("/income")
 def get_income(ticker: str, period: str, limit: int):
     """Get 利润表"""
-    return {}
+    from fin_data.financials import get_income
+    return get_income(ticker, period, limit)
 
 @register_widget({
     "name": "资产负债表",
@@ -140,7 +141,7 @@ def get_income(ticker: str, period: str, limit: int):
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Ticker to get 资产负债表 for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },
@@ -168,7 +169,8 @@ def get_income(ticker: str, period: str, limit: int):
 @app.get("/balance")
 def get_balance(ticker: str, period: str, limit: int):
     """Get 资产负债表"""
-    return {}
+    from fin_data.financials import get_balance
+    return get_balance(ticker, period, limit)
 
 @app.get("/financial_metrics")
 def get_financial_metrics(ticker: str, period: str, limit: int):
@@ -197,7 +199,7 @@ def get_financial_metrics(ticker: str, period: str, limit: int):
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Ticker to get 现金流量表 for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },
@@ -225,7 +227,8 @@ def get_financial_metrics(ticker: str, period: str, limit: int):
 @app.get("/cash_flow")
 def get_cash_flow(ticker: str, period: str, limit: int):
     """Get 现金流量表"""
-    return {}
+    from fin_data.financials import get_cash_flow
+    return get_cash_flow(ticker, period, limit)
 
 @register_widget({
     "name": "Company Facts",
@@ -253,7 +256,7 @@ def get_cash_flow(ticker: str, period: str, limit: int):
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Ticker to get company facts for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         }
@@ -262,7 +265,8 @@ def get_cash_flow(ticker: str, period: str, limit: int):
 @app.get("/company_facts")
 def get_company_facts(ticker: str):
     """Get company facts for a ticker"""
-    return {}
+    from fin_data.profile import get_profile
+    return get_profile(ticker).to_dict(orient="records")
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")
@@ -310,7 +314,7 @@ def get_stock_tickers():
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Stock ticker to get news for (Free tier: AAPL, MSFT, TSLA)",
             "multiSelect": False,
             "optionsEndpoint": "/stock_tickers"
@@ -324,11 +328,11 @@ def get_stock_tickers():
         }
     ]
 })
-
 @app.get("/stock_news")
 async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), limit: int = 10):
     """Get news articles for a stock"""
-    return {}
+    from fin_data.profile import get_news
+    return get_news(ticker, limit).to_dict(orient="records")
 
 @register_widget({
     "name": "Stock Prices Historical",
@@ -362,7 +366,7 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), l
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Stock ticker to get historical prices for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },
@@ -412,7 +416,8 @@ def get_stock_prices_historical(
     end_date: str
 ):
     """Get historical stock prices"""
-    return {}
+    from fin_data.profile import get_historical_prices
+    return get_historical_prices(ticker, interval, interval_multiplier, start_date, end_date).to_dict(orient="records")
 
 @register_widget({
     "name": "Earnings Press Releases",
@@ -431,7 +436,7 @@ def get_stock_prices_historical(
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Company ticker to get earnings press releases for",
             "multiSelect": False,
             "optionsEndpoint": "/stock_tickers"
@@ -474,7 +479,7 @@ async def get_earnings_press_releases(ticker: str = Query(..., description="Comp
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Stock ticker to get insider trades for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },
@@ -582,7 +587,7 @@ async def get_institutional_ownership_by_investor(
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "NVDA",
+            "value": "600325",
             "description": "Stock ticker to get institutional ownership for (Free tier: AAPL, MSFT, TSLA)",
             "optionsEndpoint": "/stock_tickers"
         },

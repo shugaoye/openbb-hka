@@ -1,12 +1,15 @@
 [project]
-name = "finanalyzer"
+name = "FinAnalyzer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Dashboard for your financial data in China market"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi>=0.116.1",
+    "fastapi>=0.115",
+    "openbb>=4.1.3",
+    "openbb-akshare>=0.6.1",
+    "openbb-core==1.4.8",
     "python-dotenv>=1.1.1",
     "requests>=2.32.4",
-    "uvicorn>=0.35.0",
+    "uvicorn>=0.34.2",
 ]
