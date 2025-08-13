@@ -100,7 +100,7 @@ def get_widgets():
             "description": "Period to get statements from",
             "options": [
                 {"value": "annual", "label": "Annual"},
-                {"value": "quarterly", "label": "Quarterly"},
+                {"value": "quarter", "label": "Quarterly"},
                 {"value": "ttm", "label": "TTM"}
             ]
         },
@@ -117,7 +117,7 @@ def get_widgets():
 def get_income(ticker: str, period: str, limit: int):
     """Get 利润表"""
     from fin_data.financials import get_income
-    return get_income(ticker, period, limit)
+    return get_income(ticker, period, limit).to_dict(orient="records")
 
 @register_widget({
     "name": "资产负债表",
@@ -153,7 +153,7 @@ def get_income(ticker: str, period: str, limit: int):
             "description": "Period to get statements from",
             "options": [
                 {"value": "annual", "label": "Annual"},
-                {"value": "quarterly", "label": "Quarterly"},
+                {"value": "quarter", "label": "Quarterly"},
                 {"value": "ttm", "label": "TTM"}
             ]
         },
@@ -170,7 +170,7 @@ def get_income(ticker: str, period: str, limit: int):
 def get_balance(ticker: str, period: str, limit: int):
     """Get 资产负债表"""
     from fin_data.financials import get_balance
-    return get_balance(ticker, period, limit)
+    return get_balance(ticker, period, limit).to_dict(orient="records")
 
 @app.get("/financial_metrics")
 def get_financial_metrics(ticker: str, period: str, limit: int):
@@ -211,7 +211,7 @@ def get_financial_metrics(ticker: str, period: str, limit: int):
             "description": "Period to get statements from",
             "options": [
                 {"value": "annual", "label": "Annual"},
-                {"value": "quarterly", "label": "Quarterly"},
+                {"value": "quarter", "label": "Quarterly"},
                 {"value": "ttm", "label": "TTM"}
             ]
         },
@@ -228,7 +228,7 @@ def get_financial_metrics(ticker: str, period: str, limit: int):
 def get_cash_flow(ticker: str, period: str, limit: int):
     """Get 现金流量表"""
     from fin_data.financials import get_cash_flow
-    return get_cash_flow(ticker, period, limit)
+    return get_cash_flow(ticker, period, limit).to_dict(orient="records")
 
 @register_widget({
     "name": "Company Facts",
