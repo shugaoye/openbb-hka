@@ -7,7 +7,7 @@ def get_balance(ticker: str, period: str, limit: int) -> pd.DataFrame:
     Get balance sheet
     """
     balance_df = obb.equity.fundamental.balance(symbol=ticker, period=period, limit=limit, provider=default_provider).to_dataframe().head(limit)
-    return balance_df[["period_ending", "fiscal_period", "totalEquity", "totalDebt", "totalAssets"]]
+    return balance_df[["period_ending", "fiscal_period", "总权益", "负债总额", "总资产"]]
 
 def get_cash_flow(ticker: str, period: str, limit: int) -> pd.DataFrame:
     """
