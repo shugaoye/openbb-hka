@@ -266,7 +266,7 @@ def get_cash_flow(ticker: str, period: str, limit: int):
 def get_company_facts(ticker: str):
     """Get company facts for a ticker"""
     from fin_data.profile import get_profile
-    return get_profile(ticker).to_dict(orient="records")
+    return get_profile(ticker).to_dict(orient='list')
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")

@@ -10,8 +10,12 @@ def get_profile(ticker: str)->pd.DataFrame:
     """
     Get company profile
     """
-    profile_def = obb.equity.profile(symbol=ticker, provider=default_provider).to_dataframe()
-    return profile_def[["symbol", "公司名称", "公司简介", "主要范围", "成立日期", "上市日期"]].T
+    from mysharelib.tools import get_timestamp
+    profile_df = obb.equity.profile(symbol=ticker, provider=default_provider).to_dataframe()
+    profile_df=profile_df[["symbol", "公司名称", "公司简介", "主要范围", "成立日期", "上市日期"]]
+    profile_df['成立日期']=pd.to_datetime(get_timestamp(profile_df['成立日期']), unit='s').date()
+    profile_df.set_index('symbol', inplace=True)
+    return profile_df
 
 def get_historical_prices(
     ticker: str,
