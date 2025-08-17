@@ -348,16 +348,19 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), l
     },
     "data": {
         "table": {
-            "showAll": True,
+            "enableCharts": True,
+            "showAll": False,
+            "chartView": {
+                "enabled": True,
+                "chartType": "line"
+            },
             "columnsDefs": [
-                {"field": "time", "headerName": "Time", "width": 180, "cellDataType": "text", "pinned": "left"},
+                {"field": "date", "headerName": "Date", "width": 180, "chartDataType": "time"},
                 {"field": "open", "headerName": "Open", "width": 120, "cellDataType": "number"},
                 {"field": "high", "headerName": "High", "width": 120, "cellDataType": "number"},
                 {"field": "low", "headerName": "Low", "width": 120, "cellDataType": "number"},
-                {"field": "close", "headerName": "Close", "width": 120, "cellDataType": "number"},
-                {"field": "volume", "headerName": "Volume", "width": 120, "cellDataType": "number"},
-                {"field": "vwap", "headerName": "VWAP", "width": 120, "cellDataType": "number"},
-                {"field": "transactions", "headerName": "Transactions", "width": 120, "cellDataType": "number"}
+                {"field": "close", "headerName": "Close", "width": 120, "chartDataType": "series"},
+                {"field": "volume", "headerName": "Volume", "width": 120, "cellDataType": "number"}
             ]
         }
     },
@@ -417,7 +420,8 @@ def get_stock_prices_historical(
 ):
     """Get historical stock prices"""
     from fin_data.profile import get_historical_prices
-    return get_historical_prices(ticker, interval, interval_multiplier, start_date, end_date).to_dict(orient="records")
+    stock_prices = get_historical_prices(ticker, interval, interval_multiplier, start_date, end_date)
+    return stock_prices.reset_index().to_dict(orient="records")
 
 @register_widget({
     "name": "Earnings Press Releases",
