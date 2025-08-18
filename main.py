@@ -235,7 +235,7 @@ def get_cash_flow(ticker: str, period: str, limit: int):
     "description": "Get key company information including name, CIK, market cap, total employees, website URL, and more.",
     "category": "Equity",
     "subcategory": "Company Info",
-    "type": "table",
+    "type": "markdown",
     "widgetId": "company_facts",
     "endpoint": "company_facts",
     "gridData": {
@@ -266,7 +266,7 @@ def get_cash_flow(ticker: str, period: str, limit: int):
 def get_company_facts(ticker: str):
     """Get company facts for a ticker"""
     from fin_data.profile import get_profile
-    return get_profile(ticker).to_dict(orient='list')
+    return get_profile(ticker).T.to_markdown()
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")
