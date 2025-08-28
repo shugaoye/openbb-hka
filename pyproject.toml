@@ -1,6 +1,6 @@
 [project]
 name = "FinAnalyzer"
-version = "0.1.1"
+version = "0.1.2"
 description = "Dashboard for your financial data in China market"
 readme = "README.md"
 requires-python = ">=3.11"

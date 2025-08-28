@@ -1,17 +1,40 @@
 import json
 from pathlib import Path
-import os
-import requests
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Query
+from importlib.metadata import version
+from fastapi import FastAPI, HTTPException, status, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
 from functools import wraps
 import asyncio
 from fastapi.websockets import WebSocketState
 from core.registry import register_widget, WIDGETS
+from core.config import config
 
-app = FastAPI()
+app = FastAPI(title=config.title,
+    description=config.description,
+    version="0.1.2")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+def validate_api_key(token: str, api_key: str) -> bool:
+    """Validate API key in header against pre-defined list of keys."""
+    if not token:
+        return False
+    if token.replace("Bearer ", "").strip() == api_key:
+        return True
+    return False
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    if not validate_api_key(token=token, api_key=config.app_api_key):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing API key",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return token
+
 
 origins = [
     "https://pro.openbb.co",
@@ -28,7 +51,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"Info": "Financial Datasets to integrate with OpenBB"}
+    return {"Info": f"{config.description}"}
 
 @app.get("/health")
 def health_check():
@@ -39,7 +62,7 @@ def health_check():
 # it contains the information and configuration about all the
 # apps that will be displayed in the OpenBB Workspace
 @app.get("/apps.json")
-def get_apps():
+def get_apps(token: str = Depends(get_current_user)):
     """Apps configuration file for the OpenBB Workspace
     
     Returns:
@@ -55,7 +78,7 @@ def get_apps():
 # The WIDGETS dictionary is maintained by the registry.py helper
 # which automatically registers widgets when using the @register_widget decorator
 @app.get("/widgets.json")
-def get_widgets():
+def get_widgets(token: str = Depends(get_current_user)):
     """Returns the configuration of all registered widgets
     
     The widgets are automatically registered through the @register_widget decorator
@@ -114,7 +137,7 @@ def get_widgets():
     ]
 })
 @app.get("/income")
-def get_income(ticker: str, period: str, limit: int):
+def get_income(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 利润表"""
     from fin_data.financials import get_income
     return get_income(ticker, period, limit).to_dict(orient="records")
@@ -167,13 +190,13 @@ def get_income(ticker: str, period: str, limit: int):
     ]
 })
 @app.get("/balance")
-def get_balance(ticker: str, period: str, limit: int):
+def get_balance(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 资产负债表"""
     from fin_data.financials import get_balance
     return get_balance(ticker, period, limit).to_dict(orient="records")
 
 @app.get("/financial_metrics")
-def get_financial_metrics(ticker: str, period: str, limit: int):
+def get_financial_metrics(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get financial metrics and ratios"""
     return {}
 
@@ -225,7 +248,7 @@ def get_financial_metrics(ticker: str, period: str, limit: int):
     ]
 })
 @app.get("/cash_flow")
-def get_cash_flow(ticker: str, period: str, limit: int):
+def get_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 现金流量表"""
     from fin_data.financials import get_cash_flow
     return get_cash_flow(ticker, period, limit).to_dict(orient="records")
@@ -263,19 +286,19 @@ def get_cash_flow(ticker: str, period: str, limit: int):
     ]
 })
 @app.get("/company_facts")
-def get_company_facts(ticker: str):
+def get_company_facts(ticker: str, token: str = Depends(get_current_user)):
     """Get company facts for a ticker"""
     from fin_data.profile import get_profile
     return get_profile(ticker).T.to_markdown()
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")
-async def get_tickers():
+async def get_tickers(token: str = Depends(get_current_user)):
     """Get available tickers for earnings press releases"""
     return {}
 
 @app.get("/stock_tickers")
-def get_stock_tickers():
+def get_stock_tickers(token: str = Depends(get_current_user)):
     """Get available stock tickers for free tier"""
     return [
         {"label": "华发股份", "value": "600325"},
@@ -329,7 +352,8 @@ def get_stock_tickers():
     ]
 })
 @app.get("/stock_news")
-async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), limit: int = 10):
+async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), 
+                         limit: int = 10, token: str = Depends(get_current_user)):
     """Get news articles for a stock"""
     from fin_data.profile import get_news
     return get_news(ticker, limit).to_dict(orient="records")
@@ -416,7 +440,8 @@ def get_stock_prices_historical(
     interval: str,
     interval_multiplier: int,
     start_date: str,
-    end_date: str
+    end_date: str, 
+    token: str = Depends(get_current_user)
 ):
     """Get historical stock prices"""
     from fin_data.profile import get_historical_prices
@@ -448,7 +473,8 @@ def get_stock_prices_historical(
     ]
 })
 @app.get("/earnings_press_releases")
-async def get_earnings_press_releases(ticker: str = Query(..., description="Company ticker")):
+async def get_earnings_press_releases(ticker: str = Query(..., description="Company ticker"), 
+                                      token: str = Depends(get_current_user)):
     """Get earnings press releases for a company"""
     return {}
 
@@ -498,12 +524,14 @@ async def get_earnings_press_releases(ticker: str = Query(..., description="Comp
 })
 
 @app.get("/insider_trades")
-async def get_insider_trades(ticker: str = Query(..., description="Stock ticker"), limit: int = 50):
+async def get_insider_trades(ticker: str = Query(..., description="Stock ticker"), 
+                             limit: int = 50, 
+                             token: str = Depends(get_current_user)):
     """Get insider trading activity for a stock"""
     return {}
 
 @app.get("/institutional_investors")
-async def get_institutional_investors():
+async def get_institutional_investors(token: str = Depends(get_current_user)):
     """Get list of available institutional investors"""
     return {}
 
@@ -557,7 +585,8 @@ async def get_institutional_investors():
 @app.get("/institutional_ownership_by_investor")
 async def get_institutional_ownership_by_investor(
     investor: str = Query(..., description="Institutional investor name"),
-    limit: int = 100
+    limit: int = 100, 
+    token: str = Depends(get_current_user)
 ):
     """Get institutional ownership data for an investor"""
     return {}
@@ -608,7 +637,8 @@ async def get_institutional_ownership_by_investor(
 @app.get("/institutional_ownership_by_ticker")
 async def get_institutional_ownership_by_ticker(
     ticker: str = Query(..., description="Stock ticker"),
-    limit: int = 100
+    limit: int = 100, 
+    token: str = Depends(get_current_user)
 ):
     """Get institutional ownership data for a stock"""
     return {}
