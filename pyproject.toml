@@ -1,5 +1,5 @@
 [project]
-name = "FinAnalyzer"
+name = "FinApp"
 version = "0.1.2"
 description = "Dashboard for your financial data in China market"
 readme = "README.md"

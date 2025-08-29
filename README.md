@@ -1,6 +1,6 @@
-# FinAnalyzer
+# FinApp
 
-OpenBB with AKShare and Tushare backend
+Your dashboard for China market. Built using OpenBB workspace with data from AKShare and Tushare.
 
 1. Install all the required libraries
 
