@@ -1,15 +1,44 @@
 [
+  {
+    "name": "\u6e2f\u80a1",
+    "img": "https://static04.hket.com/res/v3/image/content/4000000/4000524/ADR_1024.jpeg",
+    "img_dark": "",
+    "img_light": "",
+    "description": "\u6e2f\u80a1\u6570\u636e\u3002",
+    "allowCustomization": true,
+            "tabs": {
+            "overview": {
+                "id": "overview",
+                "name": "overview",
+                "layout": [
+                    {
+                        "i": "economy_fomc_documents_federal_reserve_obb",
+                        "x": 0,
+                        "y": 0,
+                        "w": 40,
+                        "h": 42,
+                        "state": {
+                            "params": {
+                                "year": 2025
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "groups": []
+  },
     {
-        "name": "Finanalyzer",
-        "img": "https://financialdatasets.ai/og-image.png",
+        "name": "A\u80a1",
+        "img": "https://x0.ifengimg.com/ucms/2025_16/A25F85EA69929D10BE12190E20264C43657282E1_size230_w1013_h584.jpg",
         "img_dark": "",
         "img_light": "",
-        "description": "Developer-friendly stock market API.",
+        "description": "A\u80a1\u6570\u636e\u3002",
         "allowCustomization": true,
         "tabs": {
           "overview": {
             "id": "overview",
-            "name": "Overview",
+            "name": "\u7b80\u51b5",
             "layout": [
               {
                 "i": "company_facts",
@@ -107,7 +136,7 @@
           },
           "financials": {
             "id": "financials",
-            "name": "Financials",
+            "name": "\u8d22\u52a1",
             "layout": [
               {
                 "i": "balance",
@@ -639,162 +668,16 @@
               }
             ]
           },
-          "insider-trades": {
-            "id": "insider-trades",
-            "name": "Insider Trades",
+          "stock-prices": {
+            "id": "stock-prices",
+            "name": "\u80a1\u4ef7",
             "layout": [
               {
-                "i": "insider_trades",
-                "x": 0,
-                "y": 2,
-                "w": 40,
-                "h": 24,
-                "state": {
-                  "chartView": {
-                    "enabled": false,
-                    "chartType": "line"
-                  },
-                  "columnState": {
-                    "default": {
-                      "columnPinning": {
-                        "leftColIds": [
-                          "transaction_date"
-                        ],
-                        "rightColIds": []
-                      },
-                      "columnOrder": {
-                        "orderedColIds": [
-                          "issuer",
-                          "name",
-                          "title",
-                          "is_board_director",
-                          "transaction_date",
-                          "transaction_shares",
-                          "transaction_price_per_share",
-                          "transaction_value",
-                          "shares_owned_before_transaction",
-                          "shares_owned_after_transaction",
-                          "security_title"
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          },
-          "press-releases": {
-            "id": "press-releases",
-            "name": "Press Releases",
-            "layout": [
-              {
-                "i": "earnings_press_releases",
+                "i": "stock-prices",
                 "x": 0,
                 "y": 2,
                 "w": 40,
                 "h": 20
-              }
-            ]
-          },
-          "institutional-ownership": {
-            "id": "institutional-ownership",
-            "name": "Institutional Ownership",
-            "layout": [
-              {
-                "i": "institutional_ownership_by_investor",
-                "x": 0,
-                "y": 21,
-                "w": 40,
-                "h": 15,
-                "state": {
-                  "chartModel": {
-                    "modelType": "range",
-                    "chartType": "line",
-                    "chartOptions": {},
-                    "cellRange": {
-                      "columns": [
-                        "ticker",
-                        "price",
-                        "shares",
-                        "market_value"
-                      ]
-                    },
-                    "suppressChartRanges": true
-                  },
-                  "chartView": {
-                    "enabled": false,
-                    "chartType": "line"
-                  },
-                  "columnState": {
-                    "default": {
-                      "columnPinning": {
-                        "leftColIds": [
-                          "ticker"
-                        ],
-                        "rightColIds": []
-                      },
-                      "columnOrder": {
-                        "orderedColIds": [
-                          "ticker",
-                          "report_period",
-                          "price",
-                          "shares",
-                          "market_value"
-                        ]
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "i": "institutional_ownership_by_ticker",
-                "x": 0,
-                "y": 2,
-                "w": 40,
-                "h": 19,
-                "state": {
-                  "chartModel": {
-                    "modelType": "range",
-                    "chartType": "stackedLine",
-                    "chartOptions": {
-                      "line": {
-                        "legend": {
-                          "enabled": false
-                        }
-                      }
-                    },
-                    "cellRange": {
-                      "columns": [
-                        "investor",
-                        "price"
-                      ]
-                    },
-                    "suppressChartRanges": true
-                  },
-                  "chartView": {
-                    "enabled": false,
-                    "chartType": "stackedLine"
-                  },
-                  "columnState": {
-                    "default": {
-                      "columnPinning": {
-                        "leftColIds": [
-                          "investor"
-                        ],
-                        "rightColIds": []
-                      },
-                      "columnOrder": {
-                        "orderedColIds": [
-                          "investor",
-                          "report_period",
-                          "price",
-                          "shares",
-                          "market_value"
-                        ]
-                      }
-                    }
-                  }
-                }
               }
             ]
           }
@@ -813,9 +696,7 @@
               "cash_flow",
               "income",
               "financial_metrics",
-              "insider_trades",
-              "institutional_ownership_by_ticker",
-              "earnings_press_releases"
+              "stock-prices"
             ]
           },
           {

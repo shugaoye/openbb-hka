@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from importlib.metadata import version
-from fastapi import FastAPI, HTTPException, status, Query, Depends
+from fastapi import FastAPI, HTTPException, Request, status, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
@@ -62,7 +62,7 @@ def health_check():
 # it contains the information and configuration about all the
 # apps that will be displayed in the OpenBB Workspace
 @app.get("/apps.json")
-def get_apps(token: str = Depends(get_current_user)):
+def get_apps():
     """Apps configuration file for the OpenBB Workspace
     
     Returns:
@@ -78,14 +78,16 @@ def get_apps(token: str = Depends(get_current_user)):
 # The WIDGETS dictionary is maintained by the registry.py helper
 # which automatically registers widgets when using the @register_widget decorator
 @app.get("/widgets.json")
-def get_widgets(token: str = Depends(get_current_user)):
+def get_widgets():
     """Returns the configuration of all registered widgets
     
     The widgets are automatically registered through the @register_widget decorator
     and stored in the WIDGETS dictionary from registry.py
-    
     Returns:
         dict: The configuration of all registered widgets
+    Issue:
+    Refer to the issue below for more details about authentication header
+    https://github.com/OpenBB-finance/OpenBB/issues/7175
     """
     return WIDGETS
 
