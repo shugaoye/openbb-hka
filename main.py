@@ -11,6 +11,7 @@ import asyncio
 from fastapi.websockets import WebSocketState
 from core.registry import register_widget, WIDGETS, add_template, TEMPLATES
 from core.config import config
+from routes.equity_hk import equity_hk_router
 
 app = FastAPI(title=config.title,
     description=config.description,
@@ -58,6 +59,12 @@ def health_check():
     """Health check endpoint for monitoring"""
     return {"status": "healthy"}
 
+app.include_router(
+    equity_hk_router,
+    prefix="/hk",
+)
+add_template("hk")
+
 # Apps configuration file for the OpenBB Workspace
 # it contains the information and configuration about all the
 # apps that will be displayed in the OpenBB Workspace
@@ -70,7 +77,6 @@ def get_apps():
     """
     # Read and return the apps configuration file
     add_template("cn")
-    add_template("hk")
     return list(TEMPLATES.values())
 
 # Endpoint that returns the registered widgets configuration
