@@ -1,0 +1,29 @@
+{
+    "name": "\u6e2f\u80a1",
+    "img": "https://static04.hket.com/res/v3/image/content/4000000/4000524/ADR_1024.jpeg",
+    "img_dark": "",
+    "img_light": "",
+    "description": "\u6e2f\u80a1\u6570\u636e\u3002",
+    "allowCustomization": true,
+    "tabs": {
+        "overview": {
+            "id": "overview",
+            "name": "overview",
+            "layout": [
+                {
+                    "i": "economy_fomc_documents_federal_reserve_obb",
+                    "x": 0,
+                    "y": 0,
+                    "w": 40,
+                    "h": 42,
+                    "state": {
+                        "params": {
+                            "year": 2025
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "groups": []
+}

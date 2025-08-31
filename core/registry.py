@@ -2,6 +2,7 @@ from functools import wraps
 import json
 import os
 import asyncio
+from pathlib import Path
 
 # Initialize empty dictionaries for widgets and templates
 WIDGETS = {}
@@ -58,7 +59,7 @@ def add_template(template_name: str):
     Returns:
         bool: True if template was successfully added, False otherwise
     """
-    template_path = os.path.join("app", "templates", f"{template_name}.json")
+    template_path = os.path.join(Path(__file__).parent.parent.resolve(), "templates", f"{template_name}.json")
     
     # Check if file exists
     if not os.path.exists(template_path):

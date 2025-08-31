@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from functools import wraps
 import asyncio
 from fastapi.websockets import WebSocketState
-from core.registry import register_widget, WIDGETS
+from core.registry import register_widget, WIDGETS, add_template, TEMPLATES
 from core.config import config
 
 app = FastAPI(title=config.title,
@@ -69,10 +69,9 @@ def get_apps():
         JSONResponse: The contents of apps.json file
     """
     # Read and return the apps configuration file
-    return JSONResponse(
-        content=json.load((Path(__file__).parent.resolve() / "apps.json").open())
-    )
-
+    add_template("cn")
+    add_template("hk")
+    return list(TEMPLATES.values())
 
 # Endpoint that returns the registered widgets configuration
 # The WIDGETS dictionary is maintained by the registry.py helper
