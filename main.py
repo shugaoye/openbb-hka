@@ -12,6 +12,7 @@ from fastapi.websockets import WebSocketState
 from core.registry import register_widget, WIDGETS, add_template, TEMPLATES
 from core.config import config
 from routes.equity_hk import equity_hk_router
+from routes.charts import charts_router
 
 app = FastAPI(title=config.title,
     description=config.description,
@@ -58,6 +59,11 @@ def read_root():
 def health_check():
     """Health check endpoint for monitoring"""
     return {"status": "healthy"}
+
+app.include_router(
+    charts_router,
+    prefix="/charts",
+)
 
 app.include_router(
     equity_hk_router,
