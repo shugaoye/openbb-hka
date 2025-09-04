@@ -30,8 +30,8 @@ charts_router = APIRouter()
             "type": "text",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "BTC-USD",
-            "description": "Crypto ticker (e.g., BTC-USD)"
+            "value": "600001.SH",
+            "description": "Stock ticker (e.g., 600001.SH for Shanghai Stock Exchange)"
         },
         {
             "type": "text",
@@ -78,7 +78,10 @@ async def get_charts_candles(
     start_date: str,
     end_date: str
 ):
-    data = obb.equity.price.historical(symbol=ticker, provider="akshare").to_dataframe()
+    from mysharelib.tools import get_valid_date
+    start_dt = get_valid_date(start_date)
+    end_dt = get_valid_date(end_date)
+    data = obb.equity.price.historical(symbol=ticker, start_date=start_dt, end_date=end_dt, provider="akshare").to_dataframe()
     theme: str = "dark"
     # Get chart colors based on theme
     colors = get_chart_colors(theme)
