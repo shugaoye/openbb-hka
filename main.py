@@ -267,7 +267,7 @@ def get_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get
     return get_cash_flow(ticker, period, limit).to_dict(orient="records")
 
 @register_widget({
-    "name": "Company Facts",
+    "name": "基本信息",
     "description": "Get key company information including name, CIK, market cap, total employees, website URL, and more.",
     "category": "Equity",
     "subcategory": "Company Info",
@@ -301,8 +301,8 @@ def get_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get
 @app.get("/company_facts")
 def get_company_facts(ticker: str, token: str = Depends(get_current_user)):
     """Get company facts for a ticker"""
-    from fin_data.profile import get_profile
-    return get_profile(ticker).T.to_markdown()
+    from fin_data.profile import get_info
+    return get_info(ticker).to_markdown()
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")
@@ -321,7 +321,7 @@ def get_stock_tickers(token: str = Depends(get_current_user)):
     ]
 
 @register_widget({
-    "name": "Stock News",
+    "name": "相关新闻",
     "description": "Get recent news articles for stocks, including headlines, publish dates, and article summaries.",
     "category": "Equity",
     "subcategory": "News",
@@ -372,7 +372,7 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"),
     return get_news(ticker, limit).to_dict(orient="records")
 
 @register_widget({
-    "name": "Stock Prices Historical",
+    "name": "历史股价",
     "description": "Get historical price data for stocks with customizable intervals and date ranges.",
     "category": "Equity",
     "subcategory": "Prices",

@@ -6,6 +6,18 @@ def get_news(ticker: str, limit: int = 10)->pd.DataFrame:
     """Get latest news for a stock"""
     return obb.news.company(ticker, provider=default_provider).to_dataframe().head(limit)
 
+def get_info(ticker: str)->pd.DataFrame:
+    """
+    获取A股基本信息
+    """
+    from mysharelib.em.get_a_info_em import get_a_info_em
+    from mysharelib.tools import normalize_symbol
+
+    symbol_b, symbol_f, market = normalize_symbol(ticker)
+
+    df_base, df_comparison = get_a_info_em(symbol_f)
+    return df_base
+
 def get_profile(ticker: str)->pd.DataFrame:
     """
     Get company profile
