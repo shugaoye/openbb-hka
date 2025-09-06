@@ -19,19 +19,23 @@ charts_router = APIRouter()
 @register_widget({
     "name": "k线图",
     "description": "股价k线图",
-    "category": "equity",
+    "category": "Equity",
     "type": "chart",
     "endpoint": "charts/candles",
     "widgetId": "charts/candles",
-    "gridData": {"w": 20, "h": 9},
+    "gridData": {
+        "w": 40,
+        "h": 20
+    },
     "source": "AKShare",
     "params": [
         {
-            "type": "text",
+            "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
             "value": "600001.SH",
-            "description": "Stock ticker (e.g., 600001.SH for Shanghai Stock Exchange)"
+            "description": "Stock ticker (e.g., 600001.SH for Shanghai Stock Exchange)",
+            "optionsEndpoint": "/stock_tickers"
         },
         {
             "type": "text",
@@ -58,14 +62,14 @@ charts_router = APIRouter()
             "type": "date",
             "paramName": "start_date",
             "label": "Start Date",
-            "value": "2024-01-01",
+            "value": "2024-08-01",
             "description": "Start date for historical data"
         },
         {
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2024-03-20",
+            "value": "2025-08-31",
             "description": "End date for historical data"
         }
     ],

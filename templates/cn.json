@@ -643,7 +643,7 @@
             "name": "\u80a1\u4ef7",
             "layout": [
                 {
-                    "i": "stock-prices",
+                    "i": "charts/candles",
                     "x": 0,
                     "y": 2,
                     "w": 40,
@@ -666,7 +666,8 @@
                 "cash_flow",
                 "income",
                 "financial_metrics",
-                "stock-prices"
+                "stock-prices",
+                "charts/candles"
             ]
         },
         {

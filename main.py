@@ -11,32 +11,14 @@ import asyncio
 from fastapi.websockets import WebSocketState
 from core.registry import register_widget, WIDGETS, add_template, TEMPLATES
 from core.config import config
-from routes.equity_hk import equity_hk_router
+from core.auth import get_current_user
 from routes.charts import charts_router
+from routes.equity_cn import equity_cn_router
+from routes.equity_hk import equity_hk_router
 
 app = FastAPI(title=config.title,
     description=config.description,
     version="0.1.2")
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-def validate_api_key(token: str, api_key: str) -> bool:
-    """Validate API key in header against pre-defined list of keys."""
-    if not token:
-        return False
-    if token.replace("Bearer ", "").strip() == api_key:
-        return True
-    return False
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    if not validate_api_key(token=token, api_key=config.app_api_key):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing API key",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    return token
-
 
 origins = [
     "https://pro.openbb.co",
@@ -66,6 +48,12 @@ app.include_router(
 )
 
 app.include_router(
+    equity_cn_router,
+    prefix="/cn",
+)
+add_template("cn")
+
+app.include_router(
     equity_hk_router,
     prefix="/hk",
 )
@@ -82,7 +70,6 @@ def get_apps():
         JSONResponse: The contents of apps.json file
     """
     # Read and return the apps configuration file
-    add_template("cn")
     return list(TEMPLATES.values())
 
 # Endpoint that returns the registered widgets configuration
@@ -208,10 +195,10 @@ def get_balance(ticker: str, period: str, limit: int, token: str = Depends(get_c
     from fin_data.financials import get_balance
     return get_balance(ticker, period, limit).to_dict(orient="records")
 
-@app.get("/financial_metrics")
-def get_financial_metrics(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
-    """Get financial metrics and ratios"""
-    return {}
+# @app.get("/financial_metrics")
+# def get_financial_metrics(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
+#     """Get financial metrics and ratios"""
+#     return {}
 
 @register_widget({
     "name": "现金流量表",
@@ -299,7 +286,10 @@ def get_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get
     ]
 })
 @app.get("/company_facts")
-def get_company_facts(ticker: str, token: str = Depends(get_current_user)):
+def get_company_facts(
+    ticker: str, 
+    token: str = Depends(get_current_user)
+    ):
     """Get company facts for a ticker"""
     from fin_data.profile import get_info
     return get_info(ticker).to_markdown()
