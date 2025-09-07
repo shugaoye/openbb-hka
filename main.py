@@ -15,6 +15,11 @@ from core.auth import get_current_user
 from routes.charts import charts_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
+import logging
+from mysharelib.tools import setup_logger
+
+setup_logger(__name__)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title=config.title,
     description=config.description,
@@ -103,7 +108,23 @@ def get_widgets():
     },
     "data": {
         "table": {
-            "showAll": True
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
         }
     },
     "params": [
@@ -140,7 +161,10 @@ def get_widgets():
 def get_income(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 利润表"""
     from fin_data.financials import get_income
-    return get_income(ticker, period, limit).to_dict(orient="records")
+    income_data = get_income(ticker, period, limit)
+    income_data = income_data.fillna(0)
+    #logger.info(f"Income data for {ticker}, period: {period}, limit: {limit}: {income_data}")
+    return income_data.to_dict(orient="records")
 
 @register_widget({
     "name": "资产负债表",
@@ -156,7 +180,23 @@ def get_income(ticker: str, period: str, limit: int, token: str = Depends(get_cu
     },
     "data": {
         "table": {
-            "showAll": True
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
         }
     },
     "params": [
@@ -193,12 +233,9 @@ def get_income(ticker: str, period: str, limit: int, token: str = Depends(get_cu
 def get_balance(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 资产负债表"""
     from fin_data.financials import get_balance
-    return get_balance(ticker, period, limit).to_dict(orient="records")
-
-# @app.get("/financial_metrics")
-# def get_financial_metrics(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
-#     """Get financial metrics and ratios"""
-#     return {}
+    balance_data = get_balance(ticker, period, limit)
+    balance_data = balance_data.fillna(0)
+    return balance_data.to_dict(orient="records")
 
 @register_widget({
     "name": "现金流量表",
@@ -214,7 +251,23 @@ def get_balance(ticker: str, period: str, limit: int, token: str = Depends(get_c
     },
     "data": {
         "table": {
-            "showAll": True
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
         }
     },
     "params": [
@@ -251,7 +304,9 @@ def get_balance(ticker: str, period: str, limit: int, token: str = Depends(get_c
 def get_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
     """Get 现金流量表"""
     from fin_data.financials import get_cash_flow
-    return get_cash_flow(ticker, period, limit).to_dict(orient="records")
+    cash_data = get_cash_flow(ticker, period, limit)
+    cash_data = cash_data.fillna(0)
+    return cash_data.to_dict(orient="records")
 
 @register_widget({
     "name": "基本信息",
