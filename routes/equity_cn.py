@@ -44,10 +44,10 @@ def get_financial_data(
     ticker: str
 ):
     """Get historical stock prices"""
-    from mysharelib.em.get_a_info_em import get_a_info_em
+    from openbb_akshare.utils.ak_compare_company_facts import fetch_compare_company
     from mysharelib.tools import normalize_symbol
 
     _, symbol_f, _ = normalize_symbol(ticker)
 
-    _, df_comparison = get_a_info_em(symbol_f)
+    df_comparison = fetch_compare_company(symbol_f)
     return df_comparison.to_dict(orient="records")

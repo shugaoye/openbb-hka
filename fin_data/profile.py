@@ -10,13 +10,12 @@ def get_info(ticker: str)->pd.DataFrame:
     """
     获取A股基本信息
     """
-    from mysharelib.em.get_a_info_em import get_a_info_em
     from mysharelib.tools import normalize_symbol
 
-    symbol_b, symbol_f, market = normalize_symbol(ticker)
+    _, symbol_f, _ = normalize_symbol(ticker)
 
-    df_base, df_comparison = get_a_info_em(symbol_f)
-    return df_base
+    df_base = obb.equity.fundamental.metrics(symbol=symbol_f, provider=default_provider).to_dataframe().T
+    return df_base[0]
 
 def get_profile(ticker: str)->pd.DataFrame:
     """
