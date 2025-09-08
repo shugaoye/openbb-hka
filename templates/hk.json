@@ -8,22 +8,114 @@
     "tabs": {
         "overview": {
             "id": "overview",
-            "name": "overview",
+            "name": "\u7b80\u51b5",
             "layout": [
                 {
-                    "i": "economy_fomc_documents_federal_reserve_obb",
+                    "i": "company_facts",
                     "x": 0,
-                    "y": 0,
+                    "y": 2,
                     "w": 40,
-                    "h": 42,
+                    "h": 21,
                     "state": {
-                        "params": {
-                            "year": 2025
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        },
+                        "columnState": {
+                            "default": {
+                                "columnOrder": {
+                                    "orderedColIds": [
+                                        "fact",
+                                        "value"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "financials": {
+            "id": "financials",
+            "name": "\u8d22\u52a1",
+            "layout": []            
+        },
+        "stock-prices": {
+            "id": "stock-prices",
+            "name": "\u80a1\u4ef7",
+            "layout": [
+                {
+                    "i": "charts/candles",
+                    "x": 0,
+                    "y": 2,
+                    "w": 40,
+                    "h": 20
+                },
+                {
+                    "i": "stock_prices_historical",
+                    "x": 0,
+                    "y": 23,
+                    "w": 40,
+                    "h": 14,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        },
+                        "columnState": {
+                            "default": {
+                                "columnPinning": {
+                                    "leftColIds": [
+                                        "time"
+                                    ],
+                                    "rightColIds": []
+                                },
+                                "columnOrder": {
+                                    "orderedColIds": [
+                                        "open",
+                                        "close",
+                                        "high",
+                                        "low",
+                                        "volume",
+                                        "time"
+                                    ]
+                                }
+                            }
                         }
                     }
                 }
             ]
         }
     },
-    "groups": []
+    "groups": [
+        {
+            "name": "HK 1",
+            "type": "endpointParam",
+            "paramName": "ticker",
+            "defaultValue": "600325",
+            "widgetIds": [
+                "company_facts",
+                "stock_news",
+                "stock_prices_historical",
+                "balance",
+                "cash_flow",
+                "income",
+                "cn/financial_data",
+                "stock-prices",
+                "charts/candles"
+            ]
+        },
+        {
+            "name": "HK 2",
+            "type": "param",
+            "paramName": "period",
+            "defaultValue": "annual",
+            "widgetIds": [
+                "balance",
+                "cash_flow",
+                "income",
+                "cn/financial_data"
+            ]
+        }
+    ]
 }

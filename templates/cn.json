@@ -68,6 +68,115 @@
                             }
                         }
                     }
+                }
+            ]
+        },
+        "financials": {
+            "id": "financials",
+            "name": "\u8d22\u52a1",
+            "layout": [
+                {
+                    "i": "balance",
+                    "x": 0,
+                    "y": 16,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        },
+                        "columnState": {
+                            "default": {
+                                "columnOrder": {
+                                    "orderedColIds": [
+                                        "metric",
+                                        "2025-01-26",
+                                        "2024-01-28",
+                                        "2023-01-29",
+                                        "2022-01-30",
+                                        "2021-01-31",
+                                        "2020-01-26",
+                                        "2019-01-27",
+                                        "2018-01-28",
+                                        "2017-01-29",
+                                        "2016-01-31"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "i": "cash_flow",
+                    "x": 0,
+                    "y": 32,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        },
+                        "columnState": {
+                            "default": {
+                                "columnOrder": {
+                                    "orderedColIds": [
+                                        "metric",
+                                        "2025-01-26",
+                                        "2024-01-28",
+                                        "2023-01-29",
+                                        "2022-01-30",
+                                        "2021-01-31",
+                                        "2020-01-26",
+                                        "2019-01-27",
+                                        "2018-01-28",
+                                        "2017-01-29",
+                                        "2016-01-31"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "i": "income",
+                    "x": 0,
+                    "y": 45,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        }
+                    }
+                },
+                {
+                    "i": "cn/financial_data",
+                    "x": 0,
+                    "y": 2,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "groupedColumn"
+                        }
+                    }
+                }
+            ]
+        },
+        "stock-prices": {
+            "id": "stock-prices",
+            "name": "\u80a1\u4ef7",
+            "layout": [
+                {
+                    "i": "charts/candles",
+                    "x": 0,
+                    "y": 2,
+                    "w": 40,
+                    "h": 20
                 },
                 {
                     "i": "stock_prices_historical",
@@ -101,115 +210,6 @@
                             }
                         }
                     }
-                }
-            ]
-        },
-        "financials": {
-            "id": "financials",
-            "name": "\u8d22\u52a1",
-            "layout": [
-                {
-                    "i": "balance",
-                    "x": 0,
-                    "y": 23,
-                    "w": 40,
-                    "h": 20,
-                    "state": {
-                        "chartView": {
-                            "enabled": false,
-                            "chartType": "line"
-                        },
-                        "columnState": {
-                            "default": {
-                                "columnOrder": {
-                                    "orderedColIds": [
-                                        "metric",
-                                        "2025-01-26",
-                                        "2024-01-28",
-                                        "2023-01-29",
-                                        "2022-01-30",
-                                        "2021-01-31",
-                                        "2020-01-26",
-                                        "2019-01-27",
-                                        "2018-01-28",
-                                        "2017-01-29",
-                                        "2016-01-31"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    "i": "cash_flow",
-                    "x": 0,
-                    "y": 43,
-                    "w": 40,
-                    "h": 18,
-                    "state": {
-                        "chartView": {
-                            "enabled": false,
-                            "chartType": "line"
-                        },
-                        "columnState": {
-                            "default": {
-                                "columnOrder": {
-                                    "orderedColIds": [
-                                        "metric",
-                                        "2025-01-26",
-                                        "2024-01-28",
-                                        "2023-01-29",
-                                        "2022-01-30",
-                                        "2021-01-31",
-                                        "2020-01-26",
-                                        "2019-01-27",
-                                        "2018-01-28",
-                                        "2017-01-29",
-                                        "2016-01-31"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    "i": "income",
-                    "x": 0,
-                    "y": 61,
-                    "w": 40,
-                    "h": 20,
-                    "state": {
-                        "chartView": {
-                            "enabled": false,
-                            "chartType": "line"
-                        }
-                    }
-                },
-                {
-                    "i": "cn/financial_data",
-                    "x": 0,
-                    "y": 2,
-                    "w": 40,
-                    "h": 21,
-                    "state": {
-                        "chartView": {
-                            "enabled": false,
-                            "chartType": "groupedColumn"
-                        }
-                    }
-                }
-            ]
-        },
-        "stock-prices": {
-            "id": "stock-prices",
-            "name": "\u80a1\u4ef7",
-            "layout": [
-                {
-                    "i": "charts/candles",
-                    "x": 0,
-                    "y": 2,
-                    "w": 40,
-                    "h": 20
                 }
             ]
         }
