@@ -347,7 +347,9 @@ def get_company_facts(
     ):
     """Get company facts for a ticker"""
     from fin_data.profile import get_info
-    return get_info(ticker).to_markdown()
+    key_metrics = get_info(ticker)
+    key_metrics.name = key_metrics["证券简称"]
+    return key_metrics.to_markdown()
 
 # Add back the endpoint to get available tickers
 @app.get("/earnings_press_releases/tickers")
@@ -501,14 +503,14 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"),
             "type": "date",
             "paramName": "start_date",
             "label": "Start Date",
-            "value": "2024-01-01",
+            "value": "2024-09-08",
             "description": "Start date for historical data"
         },
         {
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2024-03-20",
+            "value": "2025-09-08",
             "description": "End date for historical data"
         }
     ]

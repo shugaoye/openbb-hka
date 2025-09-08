@@ -62,14 +62,14 @@ charts_router = APIRouter()
             "type": "date",
             "paramName": "start_date",
             "label": "Start Date",
-            "value": "2024-08-01",
+            "value": "2024-09-08",
             "description": "Start date for historical data"
         },
         {
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2025-08-31",
+            "value": "2025-09-8",
             "description": "End date for historical data"
         }
     ],
