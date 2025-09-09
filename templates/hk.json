@@ -11,7 +11,7 @@
             "name": "\u7b80\u51b5",
             "layout": [
                 {
-                    "i": "hk/key_metrics_hk",
+                    "i": "hk/key_metrics",
                     "x": 0,
                     "y": 2,
                     "w": 15,
@@ -74,7 +74,21 @@
         "financials": {
             "id": "financials",
             "name": "\u8d22\u52a1",
-            "layout": []            
+            "layout": [
+                {
+                    "i": "hk/financial_data",
+                    "x": 0,
+                    "y": 2,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "groupedColumn"
+                        }
+                    }
+                }
+            ]
         },
         "stock-prices": {
             "id": "stock-prices",
@@ -130,14 +144,13 @@
             "paramName": "ticker",
             "defaultValue": "00300",
             "widgetIds": [
-                "hk/key_metrics_hk",
+                "hk/key_metrics",
                 "hk/news",
                 "hk/prices",
                 "balance",
                 "cash_flow",
                 "income",
-                "cn/financial_data",
-                "stock-prices",
+                "hk/financial_data",
                 "hk/candles"
             ]
         },
@@ -150,7 +163,7 @@
                 "balance",
                 "cash_flow",
                 "income",
-                "cn/financial_data"
+                "hk/financial_data"
             ]
         }
     ]

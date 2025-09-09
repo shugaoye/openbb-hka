@@ -1,7 +1,7 @@
 [project]
 name = "FinApp"
-version = "0.1.6"
-description = "Dashboard for your financial data in China market"
+version = "0.2.0"
+description = "Dashboard for your financial data in China and Hong Kong market"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

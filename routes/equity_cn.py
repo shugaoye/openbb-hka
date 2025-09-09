@@ -12,8 +12,8 @@ from core.auth import get_current_user
 equity_cn_router = APIRouter()
 
 @register_widget({
-    "name": "财务指标",
-    "description": "获取股票的财务指标",
+    "name": "A股财务指标",
+    "description": "获取A股的财务指标",
     "category": "Equity",
     "subcategory": "Financials",
     "type": "table",

@@ -107,8 +107,8 @@ def get_stock_tickers():
     "category": "Equity",
     "subcategory": "Company Info",
     "type": "markdown",
-    "widgetId": "key_metrics_hk",
-    "endpoint": "hk/key_metrics_hk",
+    "widgetId": "key_metrics",
+    "endpoint": "hk/key_metrics",
     "gridData": {
         "w": 10,
         "h": 12
@@ -133,8 +133,8 @@ def get_stock_tickers():
         }
     ]
 })
-@equity_hk_router.get("/key_metrics_hk")
-def get_key_metrics_hk(
+@equity_hk_router.get("/key_metrics")
+def get_key_metrics(
     ticker: str
     ):
     """
@@ -285,3 +285,44 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"),
     """Get news articles for a stock"""
     from fin_data.profile import get_news
     return get_news(ticker, limit).to_dict(orient="records")
+
+@register_widget({
+    "name": "港股财务指标",
+    "description": "获取港股的财务指标",
+    "category": "Equity",
+    "subcategory": "Financials",
+    "type": "table",
+    "widgetId": "financial_data",
+    "endpoint": "hk/financial_data",
+    "gridData": {
+        "w": 80,
+        "h": 12
+    },
+    "data": {
+        "table": {
+            "showAll": True
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Stock ticker",
+            "optionsEndpoint": "hk/tickers"
+        }
+    ]
+})
+@equity_hk_router.get("/financial_data")
+def get_financial_data(
+    ticker: str
+):
+    """Get historical stock prices"""
+    from openbb_akshare.utils.ak_compare_company_facts import fetch_compare_company
+    from mysharelib.tools import normalize_symbol
+
+    _, symbol_f, _ = normalize_symbol(ticker)
+
+    df_comparison = fetch_compare_company(symbol_f)
+    return df_comparison.to_dict(orient="records")
