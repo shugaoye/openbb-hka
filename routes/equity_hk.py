@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Query, Depends
 from core.registry import register_widget
 import pandas as pd
 from typing import List
 import json
 import asyncio
 import numpy as np
+from core.auth import get_current_user
 
 equity_hk_router = APIRouter()
 
@@ -233,3 +234,54 @@ def get_prices_hk(
     from fin_data.profile import get_historical_prices
     stock_prices = get_historical_prices(ticker, interval, interval_multiplier, start_date, end_date)
     return stock_prices.reset_index().to_dict(orient="records")
+
+@register_widget({
+    "name": "港股新闻",
+    "description": "Get recent news articles for stocks, including headlines, publish dates, and article summaries.",
+    "category": "Equity",
+    "subcategory": "News",
+    "type": "table",
+    "widgetId": "hk/news",
+    "endpoint": "hk/news",
+    "gridData": {
+        "w": 40,
+        "h": 8
+    },
+    "data": {
+        "table": {
+            "showAll": True,
+            "columnsDefs": [
+                {"field": "date", "headerName": "Date", "width": 180, "cellDataType": "text", "pinned": "left"},
+                {"field": "title", "headerName": "Title", "width": 300, "cellDataType": "text"},
+                {"field": "source", "headerName": "Source", "width": 150, "cellDataType": "text"},
+                {"field": "author", "headerName": "Author", "width": 150, "cellDataType": "text"},
+                {"field": "sentiment", "headerName": "Sentiment", "width": 120, "cellDataType": "text"},
+                {"field": "url", "headerName": "URL", "width": 200, "cellDataType": "text"}
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Stock ticker to get news",
+            "multiSelect": False,
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "number",
+            "paramName": "limit",
+            "label": "Number of Articles",
+            "value": "10",
+            "description": "Maximum number of news articles to display"
+        }
+    ]
+})
+@equity_hk_router.get("/news")
+async def get_stock_news(ticker: str = Query(..., description="Stock ticker"), 
+                         limit: int = 10, token: str = Depends(get_current_user)):
+    """Get news articles for a stock"""
+    from fin_data.profile import get_news
+    return get_news(ticker, limit).to_dict(orient="records")

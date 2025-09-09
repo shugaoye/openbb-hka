@@ -14,7 +14,7 @@
                     "i": "hk/key_metrics_hk",
                     "x": 0,
                     "y": 2,
-                    "w": 40,
+                    "w": 15,
                     "h": 21,
                     "state": {
                         "chartView": {
@@ -27,6 +27,42 @@
                                     "orderedColIds": [
                                         "fact",
                                         "value"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "i": "hk/news",
+                    "x": 15,
+                    "y": 2,
+                    "w": 25,
+                    "h": 21,
+                    "state": {
+                        "params": {
+                            "limit": "20"
+                        },
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        },
+                        "columnState": {
+                            "default": {
+                                "columnPinning": {
+                                    "leftColIds": [
+                                        "date"
+                                    ],
+                                    "rightColIds": []
+                                },
+                                "columnOrder": {
+                                    "orderedColIds": [
+                                        "title",
+                                        "author",
+                                        "date",
+                                        "sentiment",
+                                        "url",
+                                        "source"
                                     ]
                                 }
                             }
@@ -95,7 +131,7 @@
             "defaultValue": "00300",
             "widgetIds": [
                 "hk/key_metrics_hk",
-                "stock_news",
+                "hk/news",
                 "hk/prices",
                 "balance",
                 "cash_flow",
