@@ -11,7 +11,7 @@
             "name": "\u7b80\u51b5",
             "layout": [
                 {
-                    "i": "company_facts",
+                    "i": "hk/key_metrics_hk",
                     "x": 0,
                     "y": 2,
                     "w": 40,
@@ -45,14 +45,14 @@
             "name": "\u80a1\u4ef7",
             "layout": [
                 {
-                    "i": "charts/candles",
+                    "i": "hk/candles",
                     "x": 0,
                     "y": 2,
                     "w": 40,
                     "h": 20
                 },
                 {
-                    "i": "stock_prices_historical",
+                    "i": "hk/prices",
                     "x": 0,
                     "y": 23,
                     "w": 40,
@@ -92,17 +92,17 @@
             "name": "HK 1",
             "type": "endpointParam",
             "paramName": "ticker",
-            "defaultValue": "600325",
+            "defaultValue": "00300",
             "widgetIds": [
-                "company_facts",
+                "hk/key_metrics_hk",
                 "stock_news",
-                "stock_prices_historical",
+                "hk/prices",
                 "balance",
                 "cash_flow",
                 "income",
                 "cn/financial_data",
                 "stock-prices",
-                "charts/candles"
+                "hk/candles"
             ]
         },
         {

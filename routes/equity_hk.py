@@ -8,14 +8,228 @@ import numpy as np
 
 equity_hk_router = APIRouter()
 
+@equity_hk_router.get("/candles")
 @register_widget({
-    "name": "FinApp HK Equity",
-    "description": "A FinApp widget",
-    "type": "markdown",
-    "endpoint": "hk/info",
-    "gridData": {"w": 12, "h": 4},
+    "name": "港股k线图",
+    "description": "港股k线图",
+    "category": "Equity",
+    "type": "chart",
+    "endpoint": "hk/candles",
+    "widgetId": "hk/candles",
+    "gridData": {
+        "w": 40,
+        "h": 20
+    },
+    "source": "AKShare",
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300.HK",
+            "description": "Stock ticker (e.g., 00300.HK for Hong Kong Stock Exchange)",
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "text",
+            "value": "day",
+            "paramName": "interval",
+            "label": "Interval",
+            "description": "Time interval for prices",
+            "options": [
+                {"value": "minute", "label": "Minute"},
+                {"value": "day", "label": "Day"},
+                {"value": "week", "label": "Week"},
+                {"value": "month", "label": "Month"},
+                {"value": "year", "label": "Year"}
+            ]
+        },
+        {
+            "type": "number",
+            "paramName": "interval_multiplier",
+            "label": "Interval Multiplier",
+            "value": "1",
+            "description": "Multiplier for the interval (e.g., 5 for every 5 minutes)"
+        },
+        {
+            "type": "date",
+            "paramName": "start_date",
+            "label": "Start Date",
+            "value": "2024-09-08",
+            "description": "Start date for historical data"
+        },
+        {
+            "type": "date",
+            "paramName": "end_date",
+            "label": "End Date",
+            "value": "2025-09-8",
+            "description": "End date for historical data"
+        }
+    ],
+    "data": {"chart": {"type": "candlestick"}},
 })
-@equity_hk_router.get("/info")
-def info():
-    """Returns a markdown widget"""
-    return "# FinApp HK Equity\nThis is a markdown widget for HK Equity."
+async def get_candles_hk(
+    ticker: str,
+    interval: str,
+    interval_multiplier: int,
+    start_date: str,
+    end_date: str
+):
+    from routes.charts import get_chart_data
+    return get_chart_data(ticker, interval, interval_multiplier, start_date, end_date)
+
+@equity_hk_router.get("/tickers")
+def get_stock_tickers():
+    """Get available stock tickers for Hong Kong market"""
+    return [
+        {"label": "美的集团", "value": "00300"},
+        {"label": "中国人民", "value": "01339"},
+        {"label": "招商局港", "value": "00144"},
+        {"label": "香港电讯", "value": "06823"},
+        {"label": "中国石油", "value": "00386"},
+        {"label": "邮储银行", "value": "01658"},
+        {"label": "辽港股份", "value": "02880"},
+        {"label": "中国银行", "value": "03988"},
+        {"label": "中信证券", "value": "06030"},
+        {"label": "中信银行", "value": "00998"},
+        {"label": "农业银行", "value": "01288"},
+        {"label": "招商银行", "value": "03968"},
+        {"label": "中银香港", "value": "02388"},
+        {"label": "汇丰控股", "value": "00005"},
+        {"label": "建设银行", "value": "00939"},
+        {"label": "工商银行", "value": "01398"}
+    ]
+
+@register_widget({
+    "name": "港股基本信息",
+    "description": "获取港股基本信息",
+    "category": "Equity",
+    "subcategory": "Company Info",
+    "type": "markdown",
+    "widgetId": "key_metrics_hk",
+    "endpoint": "hk/key_metrics_hk",
+    "gridData": {
+        "w": 10,
+        "h": 12
+    },
+    "data": {
+        "table": {
+            "showAll": True,
+            "columns": [
+                {"field": "fact", "headerName": "Fact", "width": 200},
+                {"field": "value", "headerName": "Value", "width": 200}
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Ticker to get company facts for Hong Kong market",
+            "optionsEndpoint": "hk/tickers"
+        }
+    ]
+})
+@equity_hk_router.get("/key_metrics_hk")
+def get_key_metrics_hk(
+    ticker: str
+    ):
+    """
+        Get key metrics for a ticker
+        "optionsEndpoint": "hk/tickers"
+    """
+    from fin_data.profile import get_info
+    key_metrics = get_info(ticker)
+    key_metrics.name = ticker
+    return key_metrics.to_markdown()
+
+@register_widget({
+    "name": "港股历史股价",
+    "description": "Get historical price data for stocks.",
+    "category": "Equity",
+    "subcategory": "Prices",
+    "type": "table",
+    "widgetId": "hk/prices",
+    "endpoint": "hk/prices",
+    "gridData": {
+        "w": 40,
+        "h": 8
+    },
+    "data": {
+        "table": {
+            "enableCharts": True,
+            "showAll": False,
+            "chartView": {
+                "enabled": True,
+                "chartType": "line"
+            },
+            "columnsDefs": [
+                {"field": "date", "headerName": "Date", "width": 180, "chartDataType": "time"},
+                {"field": "open", "headerName": "Open", "width": 120, "cellDataType": "number"},
+                {"field": "high", "headerName": "High", "width": 120, "cellDataType": "number"},
+                {"field": "low", "headerName": "Low", "width": 120, "cellDataType": "number"},
+                {"field": "close", "headerName": "Close", "width": 120, "chartDataType": "series"},
+                {"field": "volume", "headerName": "Volume", "width": 120, "cellDataType": "number"}
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300.HK",
+            "description": "Stock ticker to get historical prices",
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "text",
+            "value": "day",
+            "paramName": "interval",
+            "label": "Interval",
+            "description": "Time interval for prices",
+            "options": [
+                {"value": "minute", "label": "Minute"},
+                {"value": "day", "label": "Day"},
+                {"value": "week", "label": "Week"},
+                {"value": "month", "label": "Month"},
+                {"value": "year", "label": "Year"}
+            ]
+        },
+        {
+            "type": "number",
+            "paramName": "interval_multiplier",
+            "label": "Interval Multiplier",
+            "value": "1",
+            "description": "Multiplier for the interval (e.g., 5 for every 5 minutes)"
+        },
+        {
+            "type": "date",
+            "paramName": "start_date",
+            "label": "Start Date",
+            "value": "2024-09-08",
+            "description": "Start date for historical data"
+        },
+        {
+            "type": "date",
+            "paramName": "end_date",
+            "label": "End Date",
+            "value": "2025-09-08",
+            "description": "End date for historical data"
+        }
+    ]
+})
+@equity_hk_router.get("/prices")
+def get_prices_hk(
+    ticker: str,
+    interval: str,
+    interval_multiplier: int,
+    start_date: str,
+    end_date: str
+):
+    """Get historical stock prices"""
+    from fin_data.profile import get_historical_prices
+    stock_prices = get_historical_prices(ticker, interval, interval_multiplier, start_date, end_date)
+    return stock_prices.reset_index().to_dict(orient="records")

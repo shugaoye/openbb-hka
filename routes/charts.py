@@ -82,6 +82,15 @@ async def get_charts_candles(
     start_date: str,
     end_date: str
 ):
+    return get_chart_data(ticker, interval, interval_multiplier, start_date, end_date)
+
+def get_chart_data(
+    ticker: str,
+    interval: str,
+    interval_multiplier: int,
+    start_date: str,
+    end_date: str
+) -> dict:
     from mysharelib.tools import get_valid_date
     start_dt = get_valid_date(start_date)
     end_dt = get_valid_date(end_date)
