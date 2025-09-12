@@ -326,3 +326,217 @@ def get_financial_data(
 
     df_comparison = fetch_compare_company(symbol_f)
     return df_comparison.to_dict(orient="records")
+
+@register_widget({
+    "name": "港股利润表",
+    "description": "Financial statements that provide information about a company's revenues, expenses, and profits over a specific period.",
+    "category": "Equity",
+    "subcategory": "Financials",
+    "widgetType": "individual",
+    "widgetId": "hk/income",
+    "endpoint": "hk/income",
+    "gridData": {
+        "w": 80,
+        "h": 12
+    },
+    "data": {
+        "table": {
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Ticker to get 港股利润表",
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "text",
+            "value": "annual",
+            "paramName": "period",
+            "label": "Period",
+            "description": "Period to get statements from",
+            "options": [
+                {"value": "annual", "label": "Annual"},
+                {"value": "quarter", "label": "Quarterly"},
+                {"value": "ttm", "label": "TTM"}
+            ]
+        },
+        {
+            "type": "number",
+            "paramName": "limit",
+            "label": "Number of Statements",
+            "value": "10",
+            "description": "Number of statements to display"
+        }
+    ]
+})
+@equity_hk_router.get("/income")
+def get_hk_income(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
+    """Get 利润表"""
+    from fin_data.financials import get_income
+    income_data = get_income(ticker, period, limit)
+    income_data = income_data.fillna(0)
+    #logger.info(f"Income data for {ticker}, period: {period}, limit: {limit}: {income_data}")
+    return income_data.to_dict(orient="records")
+
+@register_widget({
+    "name": "港股资产负债表",
+    "description": "A financial statement that summarizes a company's assets, liabilities and shareholders' equity at a specific point in time.",
+    "category": "Equity",
+    "subcategory": "Financials",
+    "type": "table",
+    "widgetId": "hk/balance",
+    "endpoint": "hk/balance",
+    "gridData": {
+        "w": 80,
+        "h": 12
+    },
+    "data": {
+        "table": {
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Ticker to get 资产负债表",
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "text",
+            "value": "annual",
+            "paramName": "period",
+            "label": "Period",
+            "description": "Period to get statements from",
+            "options": [
+                {"value": "annual", "label": "Annual"},
+                {"value": "quarter", "label": "Quarterly"},
+                {"value": "ttm", "label": "TTM"}
+            ]
+        },
+        {
+            "type": "number",
+            "paramName": "limit",
+            "label": "Number of Statements",
+            "value": "10",
+            "description": "Number of statements to display"
+        }
+    ]
+})
+@equity_hk_router.get("/balance")
+def get_hk_balance(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
+    """Get 资产负债表"""
+    from fin_data.financials import get_balance
+    balance_data = get_balance(ticker, period, limit)
+    balance_data = balance_data.fillna(0)
+    return balance_data.to_dict(orient="records")
+
+@register_widget({
+    "name": "港股现金流量表",
+    "description": "Financial statements that provide information about a company's cash inflows and outflows over a specific period.",
+    "category": "Equity",
+    "subcategory": "Financials",
+    "widgetType": "individual",
+    "widgetId": "hk/cash_flow",
+    "endpoint": "hk/cash_flow",
+    "gridData": {
+        "w": 80,
+        "h": 12
+    },
+    "data": {
+        "table": {
+            "showAll": True,
+            "columnsDefs": [
+                {
+                    "field": "period_ending",
+                    "headerName": "报告日期",
+                    "cellDataType": "text",
+                    "formatterFn": "none",
+                    "pinned": "left"
+                },
+                {
+                    "field": "fiscal_period",
+                    "headerName": "报告类型",
+                    "headerTooltip": "Total Value Locked",
+                    "cellDataType": "text",
+                    "formatterFn": "none"
+                }
+            ]
+        }
+    },
+    "params": [
+        {
+            "type": "endpoint",
+            "paramName": "ticker",
+            "label": "Symbol",
+            "value": "00300",
+            "description": "Ticker to get 现金流量表",
+            "optionsEndpoint": "hk/tickers"
+        },
+        {
+            "type": "text",
+            "value": "annual",
+            "paramName": "period",
+            "label": "Period",
+            "description": "Period to get statements from",
+            "options": [
+                {"value": "annual", "label": "Annual"},
+                {"value": "quarter", "label": "Quarterly"},
+                {"value": "ttm", "label": "TTM"}
+            ]
+        },
+        {
+            "type": "number",
+            "paramName": "limit",
+            "label": "Number of Statements",
+            "value": "10",
+            "description": "Number of statements to display"
+        }
+    ]
+})
+@equity_hk_router.get("/cash_flow")
+def get_hk_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(get_current_user)):
+    """Get 现金流量表"""
+    from fin_data.financials import get_cash_flow
+    cash_data = get_cash_flow(ticker, period, limit)
+    cash_data = cash_data.fillna(0)
+    return cash_data.to_dict(orient="records")

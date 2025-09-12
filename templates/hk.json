@@ -76,6 +76,45 @@
             "name": "\u8d22\u52a1",
             "layout": [
                 {
+                    "i": "hk/balance",
+                    "x": 0,
+                    "y": 16,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        }
+                    }
+                },
+                {
+                    "i": "hk/cash_flow",
+                    "x": 0,
+                    "y": 32,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        }
+                    }
+                },
+                {
+                    "i": "hk/income",
+                    "x": 0,
+                    "y": 45,
+                    "w": 40,
+                    "h": 15,
+                    "state": {
+                        "chartView": {
+                            "enabled": false,
+                            "chartType": "line"
+                        }
+                    }
+                },
+                {
                     "i": "hk/financial_data",
                     "x": 0,
                     "y": 2,
@@ -147,9 +186,9 @@
                 "hk/key_metrics",
                 "hk/news",
                 "hk/prices",
-                "balance",
-                "cash_flow",
-                "income",
+                "hk/balance",
+                "hk/cash_flow",
+                "hk/income",
                 "hk/financial_data",
                 "hk/candles"
             ]
@@ -160,9 +199,9 @@
             "paramName": "period",
             "defaultValue": "annual",
             "widgetIds": [
-                "balance",
-                "cash_flow",
-                "income",
+                "hk/balance",
+                "hk/cash_flow",
+                "hk/income",
                 "hk/financial_data"
             ]
         }

@@ -1,6 +1,6 @@
 [project]
 name = "FinApp"
-version = "0.2.0"
+version = "0.2.1"
 description = "Dashboard for your financial data in China and Hong Kong market"
 readme = "README.md"
 requires-python = ">=3.11"
