@@ -107,7 +107,7 @@ def get_stock_tickers():
     "category": "Equity",
     "subcategory": "Company Info",
     "type": "markdown",
-    "widgetId": "key_metrics",
+    "widgetId": "hk/key_metrics",
     "endpoint": "hk/key_metrics",
     "gridData": {
         "w": 10,

@@ -11,7 +11,7 @@
             "name": "\u7b80\u51b5",
             "layout": [
                 {
-                    "i": "company_facts",
+                    "i": "cn/key_metrics",
                     "x": 0,
                     "y": 2,
                     "w": 13,
@@ -34,7 +34,7 @@
                     }
                 },
                 {
-                    "i": "stock_news",
+                    "i": "cn/news",
                     "x": 13,
                     "y": 2,
                     "w": 27,
@@ -76,7 +76,7 @@
             "name": "\u8d22\u52a1",
             "layout": [
                 {
-                    "i": "balance",
+                    "i": "cn/balance",
                     "x": 0,
                     "y": 16,
                     "w": 40,
@@ -108,7 +108,7 @@
                     }
                 },
                 {
-                    "i": "cash_flow",
+                    "i": "cn/cash_flow",
                     "x": 0,
                     "y": 32,
                     "w": 40,
@@ -140,7 +140,7 @@
                     }
                 },
                 {
-                    "i": "income",
+                    "i": "cn/income",
                     "x": 0,
                     "y": 45,
                     "w": 40,
@@ -172,14 +172,14 @@
             "name": "\u80a1\u4ef7",
             "layout": [
                 {
-                    "i": "charts/candles",
+                    "i": "cn/candles",
                     "x": 0,
                     "y": 2,
                     "w": 40,
                     "h": 20
                 },
                 {
-                    "i": "stock_prices_historical",
+                    "i": "cn/prices",
                     "x": 0,
                     "y": 23,
                     "w": 40,
@@ -221,15 +221,14 @@
             "paramName": "ticker",
             "defaultValue": "600325",
             "widgetIds": [
-                "company_facts",
-                "stock_news",
-                "stock_prices_historical",
-                "balance",
-                "cash_flow",
-                "income",
+                "cn/key_metrics",
+                "cn/news",
+                "cn/prices",
+                "cn/balance",
+                "cn/cash_flow",
+                "cn/income",
                 "cn/financial_data",
-                "stock-prices",
-                "charts/candles"
+                "cn/candles"
             ]
         },
         {
@@ -238,9 +237,9 @@
             "paramName": "period",
             "defaultValue": "annual",
             "widgetIds": [
-                "balance",
-                "cash_flow",
-                "income",
+                "cn/balance",
+                "cn/cash_flow",
+                "cn/income",
                 "cn/financial_data"
             ]
         }
