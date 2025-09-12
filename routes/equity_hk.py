@@ -74,13 +74,14 @@ async def get_candles_hk(
     interval: str,
     interval_multiplier: int,
     start_date: str,
-    end_date: str
+    end_date: str,
+    token: str = Depends(get_current_user)
 ):
     from routes.charts import get_chart_data
     return get_chart_data(ticker, interval, interval_multiplier, start_date, end_date)
 
 @equity_hk_router.get("/tickers")
-def get_stock_tickers():
+def get_stock_tickers(token: str = Depends(get_current_user)):
     """Get available stock tickers for Hong Kong market"""
     return [
         {"label": "美的集团", "value": "00300"},
@@ -135,7 +136,8 @@ def get_stock_tickers():
 })
 @equity_hk_router.get("/key_metrics")
 def get_key_metrics(
-    ticker: str
+    ticker: str,
+    token: str = Depends(get_current_user)
     ):
     """
         Get key metrics for a ticker
@@ -228,7 +230,8 @@ def get_prices_hk(
     interval: str,
     interval_multiplier: int,
     start_date: str,
-    end_date: str
+    end_date: str,
+    token: str = Depends(get_current_user)
 ):
     """Get historical stock prices"""
     from fin_data.profile import get_historical_prices
@@ -316,7 +319,8 @@ async def get_stock_news(ticker: str = Query(..., description="Stock ticker"),
 })
 @equity_hk_router.get("/financial_data")
 def get_financial_data(
-    ticker: str
+    ticker: str,
+    token: str = Depends(get_current_user)
 ):
     """Get historical stock prices"""
     from openbb_akshare.utils.ak_compare_company_facts import fetch_compare_company

@@ -41,7 +41,8 @@ equity_cn_router = APIRouter()
 })
 @equity_cn_router.get("/financial_data")
 def get_financial_data(
-    ticker: str
+    ticker: str,
+    token: str = Depends(get_current_user)
 ):
     """Get historical stock prices"""
     from openbb_akshare.utils.ak_compare_company_facts import fetch_compare_company
@@ -515,7 +516,8 @@ async def get_candles_cn(
     interval: str,
     interval_multiplier: int,
     start_date: str,
-    end_date: str
+    end_date: str,
+    token: str = Depends(get_current_user)
 ):
     from routes.charts import get_chart_data
     return get_chart_data(ticker, interval, interval_multiplier, start_date, end_date)
