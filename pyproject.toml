@@ -1,5 +1,5 @@
 [project]
-name = "FinApp"
+name = "openbb-hka"
 version = "0.2.2"
 description = "Dashboard for your financial data in China and Hong Kong market"
 readme = "README.md"
@@ -9,6 +9,7 @@ dependencies = [
     "nbformat>=5.10.4",
     "openbb>=4.1.3",
     "openbb-akshare>=0.9.5",
+    "openbb-tushare>=0.3.4",
     "openbb-core==1.4.8",
     "plotly>=6.3.0",
     "python-dotenv>=1.1.1",

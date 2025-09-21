@@ -11,7 +11,10 @@ def get_balance(ticker: str, period: str, limit: int) -> pd.DataFrame:
     symbol_b, symbol_f, market = normalize_symbol(ticker)
     balance_df = obb.equity.fundamental.balance(symbol=symbol_b, period=period, limit=limit, provider=default_provider).to_dataframe().head(limit)
     if market  == "HK":
-        return balance_df[["period_ending", "总权益", "总负债", "总资产"]]
+        if "股东权益合计" in balance_df.columns:
+            return balance_df[["period_ending", "股东权益合计", "总负债", "总资产"]]
+        else:
+            return balance_df[["period_ending", "总权益", "总负债", "总资产"]]
     else:
         return balance_df[["period_ending", "fiscal_period", "股东权益", "总负债", "总资产"]]
 
@@ -38,7 +41,10 @@ def get_income(ticker: str, period: str, limit: int) -> pd.DataFrame:
 
     income_df = obb.equity.fundamental.income(symbol=symbol_b, period=period, limit=limit, provider=default_provider).to_dataframe()
     if market  == "HK":
-        return income_df[["period_ending",'营业额','股东应占溢利']].head(limit)
+        if "经营收入总额" in income_df.columns:
+            return income_df[["period_ending",'经营收入总额','股东应占溢利']].head(limit)
+        else:
+            return income_df[["period_ending",'营业额','股东应占溢利']].head(limit)
     else:
         if "总营收" in income_df.columns:
         # Column exists

@@ -452,7 +452,7 @@ def get_cn_prices(
     return stock_prices.reset_index().to_dict(orient="records")
 
 @register_widget({
-    "name": "k线图",
+    "name": "A股k线图",
     "description": "股价k线图",
     "category": "Equity",
     "type": "chart",
