@@ -17,10 +17,51 @@ openbb-hka 是一款基于 OpenBB Workspace 的应用，提供搭建A股与港�
 
 ## 环境设置
 
-uv
+### API Key
 
-Docker
+AKShare虽然是使用的免费数据，但是如果用到雪球的数据，还是需要API Key的。需要在文件 `$HOME/.openbb_platform/user_settings.json`里设置 `akshare_api_key`如下：
 
-Google
+```
+{
+    "credentials": {
+        "akshare_api_key": "your {xq_a_token}"
+    },
+    "preferences": {},
+    "defaults": {
+        "commands": {}
+    }
+}
+```
 
-Inscode
+### 环境变量
+
+虽然上面设置了API Key，但是一部分的设置还是需要通过环境变量来完成。环境变量的设置可以参考文件 `env.example`。或者根据 `env.example`生成你的 `.env`文件。
+
+| 变量               | 说明                              |
+| ------------------ | --------------------------------- |
+| AGENT_HOST_URL     | 目前可以为空                      |
+| APP_API_KEY        | 可以生成自己的JWT token来认证链接 |
+| DATA_FOLDER_PATH   | 目前可以为空                      |
+| OPENROUTER_API_KEY | 目前可以为空                      |
+| FMP_API_KEY        | 目前可以为空                      |
+
+### 安装 `uv`
+
+依赖管理使用的是 `uv`。如果系统没有，需要自行安装。安装好后，运行下列命令来同步环境。
+
+```
+uv sync
+```
+
+### 运行
+
+通过下面的命令来运行。
+
+```
+uv run uvicorn main:app --reload
+```
+
+## Docker
+
+
+## Google
