@@ -17,11 +17,11 @@ openbb-hka 是一款基于 OpenBB Workspace 的应用，提供搭建A股与港�
 
 ## 环境设置
 
-### API Key
+### API Key 设置
 
-AKShare虽然是使用的免费数据，但是如果用到雪球的数据，还是需要API Key的。需要在文件 `$HOME/.openbb_platform/user_settings.json`里设置 `akshare_api_key`如下：
+虽然 AKShare 使用的是免费数据源，但在使用雪球数据时，仍需配置 API Key。请按如下方式在文件 `$HOME/.openbb_platform/user_settings.json`中设置 `akshare_api_key`：
 
-```json
+```
 {
     "credentials": {
         "akshare_api_key": "your {xq_a_token}"
@@ -35,42 +35,84 @@ AKShare虽然是使用的免费数据，但是如果用到雪球的数据，还�
 
 ### 环境变量
 
-虽然上面设置了API Key，但是一部分的设置还是需要通过环境变量来完成。环境变量的设置可以参考文件 `env.example`。或者根据 `env.example`生成你的 `.env`文件。
+除设置 API Key 外，部分配置需通过环境变量完成。请参考项目中的 `env.example`文件设置环境变量，或基于该文件生成你自己的 `.env`文件。
 
-| 变量               | 说明                              |
-| ------------------ | --------------------------------- |
-| AGENT_HOST_URL     | 目前可以为空                      |
-| APP_API_KEY        | 可以生成自己的JWT token来认证链接 |
-| DATA_FOLDER_PATH   | 目前可以为空                      |
-| OPENROUTER_API_KEY | 目前可以为空                      |
-| FMP_API_KEY        | 目前可以为空                      |
+| 变量名称             | 说明                                    |
+| -------------------- | --------------------------------------- |
+| AGENT\_HOST\_URL     | 目前可留空                              |
+| APP\_API\_KEY        | 可使用自行生成的 JWT Token 进行身份验证 |
+| DATA\_FOLDER\_PATH   | 目前可留空                              |
+| OPENROUTER\_API\_KEY | 目前可留空                              |
+| FMP\_API\_KEY        | 目前可留空                              |
 
 ### 安装 `uv`
 
-依赖管理使用的是 `uv`。如果系统没有，需要自行安装。安装好后，运行下列命令来同步环境。
+本项目使用 `uv`进行依赖管理。如系统中尚未安装，请先安装 `uv`。安装完成后，运行以下命令以同步环境：
 
-```bash
+```
 uv sync
 ```
 
-### 运行
+### 运行应用
 
-通过下面的命令来运行。
+通过以下命令启动应用：
 
-```bash
+```
 uv run uvicorn main:app --reload
 ```
 
-## Docker
+## 使用 Docker 部署
 
-为docker配置环境变量，需要创建`.env`和`user_settings.json`。
+openbb-hka 支持通过 Docker 部署。
 
-如果使用docker，可以用下面命令来生成镜像和运行。
+### 构建 Docker 镜像
 
-```bash
+使用以下命令构建 Docker 镜像：
+
+```
 docker build -t openbb-hka:0.2.4 .
+```
+
+使用此镜像前，需配置环境变量，相关变量存储于以下文件中：
+
+* `.env`：请参照“环境设置”部分创建
+* `user_settings.json`：请参考 OpenBB 官方文档进行配置
+
+### 运行 Docker 镜像
+
+可通过以下命令启动容器：
+
+```
 docker compose up
 ```
 
-## Google
+## 使用 Google Firebase Studio
+
+如果不想在本地创建运行环境，openbb-hka 也可运行于 Google Firebase Studio 环境中。
+
+## 在 OpenBB Workspace 中使用 openbb-hka
+
+您可以选择在本地运行 openbb-hka，或将其部署至云端环境。启动应用后，即可在 OpenBB Workspace 中添加并使用该应用。
+
+![image01](docs/images/openbb_hka01.png)
+
+如上图所示，点击 “Connect Backend” 按钮添加应用。添加成功后，Workspace 中将出现两个新应用：“A股”与“港股”。
+
+点击“A股”应用，即可进入如下所示的分析面板界面：
+
+![image02](docs/images/openbb_hka02.png)
+
+目前面板包含三个主要部分：​**​简况​**​、​**​财务​**​与​**​股价​**​。您可以根据分析需求，自由添加、删除或调整控件，定制专属分析视图。
+
+下图展示财务分析面板的示例界面：
+
+![image03](docs/images/openbb_hka03.png)
+
+以下为历史股价查询功能的界面示意图：
+
+![image04](docs/images/openbb_hka04.png)
+
+## AI 功能集成
+
+OpenBB Workspace 中的所有分析控件均可添加至右侧的 Copilot 面板，用于执行智能分析。OpenBB Copilot 支持功能扩展，您可将常用的 AI 工具集成至平台中，此项功能将在后续版本中持续增强。
 

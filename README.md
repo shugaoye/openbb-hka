@@ -17,39 +17,101 @@ Another frequent point of confusion is whether OpenBB has a front-end interface 
 
 ## Environment Setup
 
-# FinApp
+### API Key Setup
 
-Your dashboard for China market. Built using OpenBB workspace with data from AKShare and Tushare.
+Although AKShare uses free data sources, an API key is still required when accessing data from Xueqiu. You need to configure the `akshare_api_key` in the file `$HOME/.openbb_platform/user_settings.json` as follows:
 
-1. Install all the required libraries
-
-```bash
-uv venv
-# Linux/macOS
-source .venv/bin/activate
-
-# Windows (PowerShell)
-.\.venv\Scripts\Activate.ps1
-
-# Windows (CMD)
-.\.venv\Scripts\activate.bat
+```
+{
+    "credentials": {
+        "akshare_api_key": "your {xq_a_token}"
+    },
+    "preferences": {},
+    "defaults": {
+        "commands": {}
+    }
+}
 ```
 
-2. Install required packages
+### Environment Variables
 
-```bash
-uv install
-# Or
-uv pip install -r requirements.txt
+In addition to the API key configuration above, some settings must be configured using environment variables. You can refer to the `env.example` file for guidance, or create your own `.env` file based on it.
+
+| Variable             | Description                                       |
+| -------------------- | ------------------------------------------------- |
+| AGENT\_HOST\_URL     | Currently can be left empty                       |
+| APP\_API\_KEY        | Use a self-generated JWT token for authentication |
+| DATA\_FOLDER\_PATH   | Currently can be left empty                       |
+| OPENROUTER\_API\_KEY | Currently can be left empty                       |
+| FMP\_API\_KEY        | Currently can be left empty                       |
+
+### Installing `uv`
+
+This project uses `uv` for dependency management. If it's not installed on your system, install it first. After installation, run the following command to sync the environment:
+
+```
+uv sync
 ```
 
-3. Run the custom backend
+### Running the Application
 
-```bash
+Start the application using the following command:
+
+```
 uv run uvicorn main:app --reload
 ```
 
-4. Go into [OpenBB](httpc://pro.openbb.co), into the Data Connectors tab to  be more specific.
-5. Add a new custom backend, with https://pro.openbb.co/app/data-connectors?modal=data-connectors&dcTab=backend as follows.
+## Using Docker
 
-That's it, now you can access data from that widget.
+openbb-hka can also be deployed using Docker.
+
+### Building the Docker Image
+
+Use the following command to build the Docker image:
+
+```
+docker build -t openbb-hka:0.2.4 .
+```
+
+To use the built image, you need to configure the environment variables in the following files:
+
+* `.env` – Create this file following the environment setup instructions
+* `user_settings.json` – Refer to the OpenBB documentation for details
+
+### Running the Docker Image
+
+Start the container using the command:
+
+```
+docker compose up
+```
+
+## Google Firebase Studio
+
+openbb-hka can also be run using Google Firebase Studio.
+
+## Using openbb-hka in OpenBB Workspace
+
+You can run openbb-hka either locally or deploy it to a cloud environment. Once the application is running, you can add it to your OpenBB Workspace.
+
+![image01](docs/images/openbb_hka01.png)
+
+As shown in the image above, click the "Connect Backend" button to add the application. After successful addition, two new applications—"A-Shares" and "H-Shares"—will appear in your workspace.
+
+Click on the "A-Shares" application to access the analysis dashboard shown below:
+
+![image02](docs/images/openbb_hka02.png)
+
+The current interface includes three main sections: **Profile**, **Financials**, and **Stock Price**. You can customize your own analysis dashboard by adding, removing, or adjusting widgets according to your preferences.
+
+Below is a screenshot of the financial analysis panel:
+
+![image03](docs/images/openbb_hka03.png)
+
+The following image shows the historical stock price query interface:
+
+![image04](docs/images/openbb_hka04.png)
+
+## AI Integration
+
+All widgets in OpenBB Workspace can be added to the Copilot panel on the right for AI-powered analysis. The OpenBB Copilot is also extensible—you can integrate commonly used AI tools into the platform. This functionality will be further enhanced in upcoming releases.
