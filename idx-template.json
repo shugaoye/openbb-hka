@@ -1,0 +1,11 @@
+{
+    "name": "OpenBB Backend",
+    "description": "Template for OpenBB Backend",
+    "categories": [
+      "Web app",
+      "Backend"
+    ],
+    "icon": "",
+    "website": "https://pro.openbb.co/",
+    "publisher": "Roger Ye"
+  }

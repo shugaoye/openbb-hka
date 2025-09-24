@@ -90,6 +90,21 @@ docker compose up
 
 openbb-hka can also be run using Google Firebase Studio.
 
+<a href="https://idx.google.com/new?template=https://github.com/finanalyzer/openbb-hka">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://cdn.idx.dev/btn/open_dark_32.svg">
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://cdn.idx.dev/btn/open_light_32.svg">
+    <img
+      height="32"
+      alt="Open in IDX"
+      src="https://cdn.idx.dev/btn/open_purple_32.svg">
+  </picture>
+</a>
+
 ## Using openbb-hka in OpenBB Workspace
 
 You can run openbb-hka either locally or deploy it to a cloud environment. Once the application is running, you can add it to your OpenBB Workspace.
