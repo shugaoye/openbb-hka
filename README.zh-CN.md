@@ -63,9 +63,14 @@ uv run uvicorn main:app --reload
 
 ## Docker
 
+为docker配置环境变量，需要创建`.env`和`user_settings.json`。
+
+如果使用docker，可以用下面命令来生成镜像和运行。
+
 ```bash
 docker build -t openbb-hka:0.2.4 .
 docker compose up
 ```
 
 ## Google
+
