@@ -90,7 +90,7 @@ docker compose up
 
 openbb-hka can also be run using Google Firebase Studio.
 
-<a href="https://idx.google.com/new?template=https://github.com/finanalyzer/openbb-hka">
+<a href="https://idx.google.com/new?template=https://github.com/finanalyzer/openbb-hka/tree/master/docs">
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
