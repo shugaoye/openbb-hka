@@ -21,7 +21,7 @@ openbb-hka 是一款基于 OpenBB Workspace 的应用，提供搭建A股与港�
 
 AKShare虽然是使用的免费数据，但是如果用到雪球的数据，还是需要API Key的。需要在文件 `$HOME/.openbb_platform/user_settings.json`里设置 `akshare_api_key`如下：
 
-```
+```json
 {
     "credentials": {
         "akshare_api_key": "your {xq_a_token}"
@@ -49,7 +49,7 @@ AKShare虽然是使用的免费数据，但是如果用到雪球的数据，还�
 
 依赖管理使用的是 `uv`。如果系统没有，需要自行安装。安装好后，运行下列命令来同步环境。
 
-```
+```bash
 uv sync
 ```
 
@@ -57,11 +57,15 @@ uv sync
 
 通过下面的命令来运行。
 
-```
+```bash
 uv run uvicorn main:app --reload
 ```
 
 ## Docker
 
+```bash
+docker build -t openbb-hka:0.2.4 .
+docker compose up
+```
 
 ## Google

@@ -1,0 +1,11 @@
+services:
+  openbb-hka:
+    image: openbb-hka:0.2.4
+    env_file:
+      - .env               # DEBUG=true, API_KEY=12345
+    environment:
+      - DEBUG=false        # Overrides DEBUG from .env
+    ports:
+      - "8000:8000"        # Map host port 8080 to container port 8080
+    volumes:
+      - ./user_settings.json:/root/.openbb_platform/user_settings.json   # Mount host ./data to container /app/data

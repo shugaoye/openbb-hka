@@ -1,0 +1,7 @@
+.git
+.idx
+.vscode
+.inscode
+inscode.nix
+devserver.sh
+user_settings.json
