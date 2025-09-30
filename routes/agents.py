@@ -14,9 +14,9 @@ from openai.types.chat import (
 )
 
 
-chatglm_router = APIRouter()
+agents_router = APIRouter()
 
-@chatglm_router.post("/query")
+@agents_router.post("/chatglm/query")
 async def query(request: QueryRequest) -> EventSourceResponse:
     """Query the Copilot."""
 

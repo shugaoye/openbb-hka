@@ -6,7 +6,7 @@ from core.config import config
 from routes.charts import charts_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
-from routes.chatglm import chatglm_router
+from routes.agents import agents_router
 import logging
 from mysharelib.tools import setup_logger
 
@@ -57,8 +57,8 @@ app.include_router(
 add_template("hk")
 
 app.include_router(
-    chatglm_router,
-    prefix="/chatglm",
+    agents_router,
+    prefix="/a",
 )
 
 @app.get("/agents.json")
