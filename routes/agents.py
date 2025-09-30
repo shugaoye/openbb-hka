@@ -13,8 +13,18 @@ from openai.types.chat import (
     ChatCompletionSystemMessageParam,
 )
 
+from core.agent import execution_loop
+
 
 agents_router = APIRouter()
+
+@agents_router.post("/openrouter/query")
+async def openrouter_query(
+    request: QueryRequest) -> EventSourceResponse:
+    """Query the OpenRouter."""
+    return EventSourceResponse(
+        (event.model_dump() async for event in execution_loop(request))
+    )
 
 @agents_router.post("/chatglm/query")
 async def query(request: QueryRequest) -> EventSourceResponse:
