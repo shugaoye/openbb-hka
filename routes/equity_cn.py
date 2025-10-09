@@ -439,7 +439,7 @@ async def get_cn_news(ticker: str = Query(..., description="Stock ticker"),
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2025-09-08",
+            "value": "2025-10-09",
             "description": "End date for historical data"
         }
     ]
@@ -511,7 +511,7 @@ def get_cn_prices(
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2025-09-8",
+            "value": "2025-10-09",
             "description": "End date for historical data"
         }
     ],
@@ -552,7 +552,16 @@ def get_cn_tickers(token: str = Depends(get_current_user)):
             "enableCharts": False,
             "showAll": False,
             "columnsDefs": [
-                {"field": "代码", "headerName": "代码", "width": 80, "cellDataType": "text"},
+                {"field": "代码", "headerName": "代码", 
+                 "cellDataType": "text",
+                 "width": 80, 
+                 "pinned": "left",
+                 "renderFn": "cellOnClick",
+                 "renderFnParams": {
+                        "actionType": "groupBy",
+                        "groupByParamName": "ticker"
+                    }
+                 },
                 {"field": "名称", "headerName": "名称", "width": 100, "cellDataType": "text"},
                 {"field": "现价", "headerName": "现价", "width": 100, "cellDataType": "number"},
                 {"field": "52周最低", "headerName": "52周最低", "width": 100, "cellDataType": "number"},
@@ -563,6 +572,18 @@ def get_cn_tickers(token: str = Depends(get_current_user)):
         }
     },
     "source": "A股",
+    "params": [
+        {
+            "paramName": "ticker",
+            "description": "Stock ticker to get the current prices.",
+            "value": "600028",
+            "label": "Symbol",
+            "type": "endpoint",
+            "optionsEndpoint": "/cn/tickers",
+            "multiSelect": False,
+            "show": True
+        },
+    ]
 })
 @equity_cn_router.get("/quote")
 def get_cn_quote(

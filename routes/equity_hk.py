@@ -27,8 +27,8 @@ equity_hk_router = APIRouter()
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "00300.HK",
-            "description": "Stock ticker (e.g., 00300.HK for Hong Kong Stock Exchange)",
+            "value": "00300",
+            "description": "Stock ticker (e.g., 00300 for Hong Kong Stock Exchange)",
             "optionsEndpoint": "hk/tickers"
         },
         {
@@ -63,7 +63,7 @@ equity_hk_router = APIRouter()
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2025-09-8",
+            "value": "2025-10-09",
             "description": "End date for historical data"
         }
     ],
@@ -169,7 +169,7 @@ def get_key_metrics(
             "type": "endpoint",
             "paramName": "ticker",
             "label": "Symbol",
-            "value": "00300.HK",
+            "value": "00300",
             "description": "Stock ticker to get historical prices",
             "optionsEndpoint": "hk/tickers"
         },
@@ -205,7 +205,7 @@ def get_key_metrics(
             "type": "date",
             "paramName": "end_date",
             "label": "End Date",
-            "value": "2025-09-08",
+            "value": "2025-10-09",
             "description": "End date for historical data"
         }
     ]
@@ -553,7 +553,16 @@ def get_hk_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(
             "enableCharts": False,
             "showAll": False,
             "columnsDefs": [
-                {"field": "代码", "headerName": "代码", "width": 80, "cellDataType": "text"},
+                {"field": "代码", "headerName": "代码", 
+                 "cellDataType": "text",
+                 "width": 80, 
+                 "pinned": "left",
+                 "renderFn": "cellOnClick",
+                 "renderFnParams": {
+                        "actionType": "groupBy",
+                        "groupByParamName": "ticker"
+                    }
+                 },
                 {"field": "名称", "headerName": "名称", "width": 100, "cellDataType": "text"},
                 {"field": "现价", "headerName": "现价", "width": 100, "cellDataType": "number"},
                 {"field": "52周最低", "headerName": "52周最低", "width": 100, "cellDataType": "number"},
@@ -564,6 +573,18 @@ def get_hk_cash_flow(ticker: str, period: str, limit: int, token: str = Depends(
         }
     },
     "source": "港股",
+    "params": [
+        {
+            "paramName": "ticker",
+            "description": "Stock ticker to get the current prices.",
+            "value": "01398",
+            "label": "Symbol",
+            "type": "endpoint",
+            "optionsEndpoint": "/hk/tickers",
+            "multiSelect": False,
+            "show": True
+        },
+    ]
 })
 @equity_hk_router.get("/quote")
 def get_hk_quote(

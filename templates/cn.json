@@ -241,7 +241,8 @@
                 "cn/cash_flow",
                 "cn/income",
                 "cn/financial_data",
-                "cn/candles"
+                "cn/candles",
+                "cn/quote"
             ]
         },
         {

@@ -203,7 +203,8 @@
                 "hk/cash_flow",
                 "hk/income",
                 "hk/financial_data",
-                "hk/candles"
+                "hk/candles",
+                "hk/quote"
             ]
         },
         {
