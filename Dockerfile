@@ -1,6 +1,17 @@
 # Use Python 3.11 slim image as base
 FROM python:3.11-slim
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        gcc \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libffi-dev \
+        libxml2-dev \
+        libxslt-dev \
+        python3-dev
+
 # Set working directory
 WORKDIR /app
 
