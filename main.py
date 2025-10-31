@@ -1,15 +1,20 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from core.registry import register_widget, WIDGETS, add_template, TEMPLATES, load_agent_config
 from core.config import config
+from core.database import engine, Base
 from routes.charts import charts_router
 from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import auth_router
 import logging
 from mysharelib.tools import setup_logger
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
 setup_logger(__name__)
 logger = logging.getLogger(__name__)
@@ -20,7 +25,9 @@ app = FastAPI(title=config.title,
 
 origins = [
     "https://pro.openbb.co",
-    "http://localhost:1420"
+    "http://localhost:1420",
+    "http://localhost:8001",
+    "http://localhost:3000"  # React dev server
 ]
 
 app.add_middleware(
@@ -31,6 +38,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# @app.middleware("http")
+# async def log_request_headers(request: Request, call_next):
+#     logger.info(f"Request headers: {request.headers}")
+#     response = await call_next(request)
+#     return response
+
 @app.get("/")
 def read_root():
     return {"Info": f"{config.description}"}
@@ -39,6 +52,10 @@ def read_root():
 def health_check():
     """Health check endpoint for monitoring"""
     return {"status": "healthy"}
+
+app.include_router(
+    auth_router,
+)
 
 app.include_router(
     tradingview_router,
@@ -101,4 +118,3 @@ def get_widgets():
     https://github.com/OpenBB-finance/OpenBB/issues/7175
     """
     return WIDGETS
-

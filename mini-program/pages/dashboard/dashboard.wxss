@@ -1,0 +1,113 @@
+/* pages/dashboard/dashboard.wxss */
+.container {
+  padding: 40rpx 30rpx 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 10rpx;
+  display: block;
+}
+
+.content {
+  padding: 0 20rpx;
+}
+
+.token-card {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.token-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.token-display {
+  background-color: #f8f9fa;
+  border: 1rpx solid #dee2e6;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
+  min-height: 120rpx;
+}
+
+.token-text {
+  font-size: 24rpx;
+  color: #495057;
+  word-break: break-all;
+  font-family: monospace;
+  line-height: 1.5;
+}
+
+.copy-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  background-color: #07c160;
+  color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.instructions {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.instructions-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.instructions-content {
+  padding-left: 20rpx;
+}
+
+.instruction {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  line-height: 1.5;
+}

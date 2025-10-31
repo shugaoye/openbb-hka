@@ -1,0 +1,31 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">OpenBB Authentication</text>
+    <text class="subtitle">Secure Access to Financial Data</text>
+  </view>
+  
+  <view class="content">
+    <view class="feature-card">
+      <text class="feature-title">Login</text>
+      <text class="feature-desc">Access your account with username and password</text>
+      <button class="feature-btn" bindtap="goToLogin">Login</button>
+    </view>
+    
+    <view class="feature-card">
+      <text class="feature-title">Register</text>
+      <text class="feature-desc">Create a new account to get started</text>
+      <button class="feature-btn" bindtap="goToRegister">Register</button>
+    </view>
+    
+    <view class="feature-card">
+      <text class="feature-title">WeChat Login</text>
+      <text class="feature-desc">Quick login with your WeChat account</text>
+      <button class="feature-btn primary" bindtap="wechatLogin">Login with WeChat</button>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <text>Powered by OpenBB</text>
+  </view>
+</view>

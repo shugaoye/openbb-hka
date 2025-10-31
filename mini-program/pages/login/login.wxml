@@ -1,0 +1,49 @@
+<!-- pages/login/login.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">Login</text>
+    <text class="subtitle">Access your account</text>
+  </view>
+  
+  <view class="form">
+    <view class="input-group">
+      <label class="label">Username</label>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="Enter your username" 
+        value="{{username}}" 
+        bindinput="onUsernameInput" />
+    </view>
+    
+    <view class="input-group">
+      <label class="label">Password</label>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="Enter your password" 
+        value="{{password}}" 
+        bindinput="onPasswordInput" />
+    </view>
+    
+    <button 
+      class="login-btn {{canSubmit ? '' : 'disabled'}}" 
+      disabled="{{!canSubmit}}" 
+      bindtap="onLogin">
+      {{isLoading ? 'Logging In...' : 'Login'}}
+    </button>
+    
+    <view class="links">
+      <text class="link" bindtap="goToRegister">Don't have an account? Register</text>
+    </view>
+  </view>
+  
+  <view class="wechat-login-section">
+    <view class="divider">
+      <text class="divider-text">OR</text>
+    </view>
+    <button class="wechat-login-btn" bindtap="wechatLogin">
+      <text>>Login with WeChat</text>
+    </button>
+  </view>
+</view>

@@ -65,6 +65,65 @@ Start the application using the following command:
 uv run uvicorn main:app --reload
 ```
 
+## Authentication System
+
+This application now includes a complete authentication system that supports both user registration/login and WeChat login. The system consists of:
+
+- **Backend API**: Python/FastAPI with JWT token authentication
+- **Web Frontend**: React application with user registration and login
+- **Mobile Frontend**: WeChat Mini Program for native WeChat authentication
+
+### Features
+
+- User registration with username/email and password
+- Username/password login
+- WeChat login (both web QR code and mini program native)
+- JWT token generation for OpenBB Workspace integration
+- Token display page for easy copying and use
+
+### Setup
+
+To enable the authentication system:
+
+1. Update your `.env` file with authentication settings:
+   ```
+   # JWT Configuration
+   SECRET_KEY=your-very-secure-secret-key-change-in-production
+   ALGORITHM=HS256
+   ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+   # WeChat Configuration  
+   WECHAT_APP_ID=your_wechat_app_id
+   WECHAT_APP_SECRET=your_wechat_app_secret
+   ```
+
+2. Install additional dependencies:
+   ```bash
+   uv sync
+   ```
+
+3. Run the backend:
+   ```bash
+   uv run uvicorn main:app --reload
+   ```
+
+### Frontend Applications
+
+The authentication system includes two frontend applications:
+
+1. **Web Frontend** (`frontend/` directory):
+   - React application for web-based authentication
+   - Supports user registration and login
+   - Provides WeChat QR code login for web users
+   - Displays JWT token for OpenBB Workspace integration
+
+2. **WeChat Mini Program** (`mini-program/` directory):
+   - Native WeChat app for seamless login experience
+   - Direct integration with WeChat's authentication system
+   - Displays JWT token for OpenBB Workspace integration
+
+Refer to the respective README files in each frontend directory for detailed setup instructions.
+
 ## Using Docker
 
 openbb-hka can also be deployed using Docker.

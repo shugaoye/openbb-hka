@@ -1,0 +1,60 @@
+<!-- pages/register/register.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">Register</text>
+    <text class="subtitle">Create a new account</text>
+  </view>
+  
+  <view class="form">
+    <view class="input-group">
+      <label class="label">Username</label>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="Choose a username" 
+        value="{{username}}" 
+        bindinput="onUsernameInput" />
+    </view>
+    
+    <view class="input-group">
+      <label class="label">Email</label>
+      <input 
+        class="input" 
+        type="email" 
+        placeholder="Enter your email" 
+        value="{{email}}" 
+        bindinput="onEmailInput" />
+    </view>
+    
+    <view class="input-group">
+      <label class="label">Password</label>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="Create a password" 
+        value="{{password}}" 
+        bindinput="onPasswordInput" />
+    </view>
+    
+    <view class="input-group">
+      <label class="label">Confirm Password</label>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="Confirm your password" 
+        value="{{confirmPassword}}" 
+        bindinput="onConfirmPasswordInput" />
+    </view>
+    
+    <button 
+      class="register-btn {{canSubmit ? '' : 'disabled'}}" 
+      disabled="{{!canSubmit}}" 
+      bindtap="onRegister">
+      {{isLoading ? 'Creating Account...' : 'Register'}}
+    </button>
+    
+    <view class="links">
+      <text class="link" bindtap="goToLogin">Already have an account? Login</text>
+    </view>
+  </view>
+</view>

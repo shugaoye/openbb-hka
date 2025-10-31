@@ -1,0 +1,28 @@
+<!-- pages/dashboard/dashboard.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">Dashboard</text>
+    <text class="subtitle">Your access token</text>
+  </view>
+  
+  <view class="content">
+    <view class="token-card">
+      <text class="token-title">Your Access Token</text>
+      <view class="token-display">
+        <text class="token-text">{{token}}</text>
+      </view>
+      <button class="copy-btn" bindtap="copyToken">Copy Token</button>
+      <button class="logout-btn" bindtap="logout">Logout</button>
+    </view>
+    
+    <view class="instructions">
+      <text class="instructions-title">How to use this token</text>
+      <view class="instructions-content">
+        <text class="instruction">1. Copy the token above</text>
+        <text class="instruction">2. In OpenBB Workspace, go to Settings > API Keys</text>
+        <text class="instruction">3. Add a new API key with the token</text>
+        <text class="instruction">4. Save and use to access protected endpoints</text>
+      </view>
+    </view>
+  </view>
+</view>

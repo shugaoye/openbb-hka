@@ -1,4 +1,6 @@
 from pydantic import BaseModel, Field, field_validator
+from typing import Optional
+from datetime import datetime
 
 
 class AppConfig(BaseModel):
@@ -55,3 +57,43 @@ class AppConfig(BaseModel):
         if value is None:
             raise ValueError("AKShare API key must be set for data retrieval.")
         return value
+
+
+class User(BaseModel):
+    """User model for authentication"""
+    id: Optional[int] = None
+    username: str
+    email: Optional[str] = None
+    hashed_password: str
+    is_active: bool = True
+    is_superuser: bool = False
+    created_at: datetime = datetime.utcnow()
+
+
+class UserCreate(BaseModel):
+    """Model for user registration"""
+    username: str
+    password: str
+    email: Optional[str] = None
+
+
+class UserLogin(BaseModel):
+    """Model for user login"""
+    username: str
+    password: str
+
+
+class Token(BaseModel):
+    """JWT Token model"""
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    """Token data model"""
+    username: Optional[str] = None
+
+
+class WeChatLogin(BaseModel):
+    """Model for WeChat login"""
+    code: str  # WeChat authorization code
