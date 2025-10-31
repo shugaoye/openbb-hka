@@ -12,4 +12,6 @@ config = AppConfig(
     openrouter_api_key=os.getenv("OPENROUTER_API_KEY", ""),
     fmp_api_key=os.getenv("FMP_API_KEY", None),
     akshare_api_key=os.getenv("AKSHARE_API_KEY", None),
+    secret_key=os.getenv("SECRET_KEY", "supersecret"),
+    algorithm=os.getenv("ALGORITHM", "HS256"),
 )

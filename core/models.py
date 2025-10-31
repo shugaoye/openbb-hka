@@ -21,6 +21,12 @@ class AppConfig(BaseModel):
     akshare_api_key: str | None = Field(
         default=None, description="AKShare API key for data retrieval."
     )
+    secret_key: str = Field(
+        default="supersecret", description="The secret key to sign the JWTs."
+    )
+    algorithm: str = Field(
+        default="HS256", description="The algorithm to use to sign the JWTs."
+    )
 
     @field_validator(
         "agent_host_url", "app_api_key", "openrouter_api_key", mode="before"

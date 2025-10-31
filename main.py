@@ -8,11 +8,15 @@ from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import router as auth_router
+from core.database import engine, Base
 import logging
 from mysharelib.tools import setup_logger
 
 setup_logger(__name__)
 logger = logging.getLogger(__name__)
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=config.title,
     description=config.description,
@@ -65,6 +69,11 @@ add_template("hk")
 app.include_router(
     agents_router,
     prefix="/a",
+)
+
+app.include_router(
+    auth_router,
+    prefix="/auth",
 )
 
 @app.get("/agents.json")
