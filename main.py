@@ -8,6 +8,7 @@ from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import router as auth_router
 import logging
 from mysharelib.tools import setup_logger
 
@@ -16,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title=config.title,
     description=config.description,
-    version="0.1.2")
+    version="0.1.3")
 
 origins = [
     "https://pro.openbb.co",
@@ -39,6 +40,9 @@ def read_root():
 def health_check():
     """Health check endpoint for monitoring"""
     return {"status": "healthy"}
+
+# Auth endpoints
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
 
 app.include_router(
     tradingview_router,

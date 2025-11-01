@@ -1,0 +1,10 @@
+{
+  "miniprogramRoot": "dist",
+  "compileType": "miniprogram",
+  "appid": "YOUR_WECHAT_APPID_HERE",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true
+  }
+}

@@ -1,0 +1,17 @@
+:root{
+  --bg: #0B0F19;
+  --card: #121826;
+  --text: #E6E8EC;
+  --muted: #9AA4B2;
+  --primary: #6C8CFF;
+  --accent: #4AC2F1;
+}
+body{background:var(--bg);color:var(--text)}
+.container{padding:24px}
+.card{background:var(--card);padding:20px;border-radius:12px}
+.input, input{width:100%;padding:10px;border-radius:8px;border:1px solid #233; background:#0f1420;color:var(--text)}
+.btn{background:var(--primary);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.btn.secondary{background:var(--accent)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.center{display:flex;justify-content:center}
+textarea{width:100%;}

@@ -22,8 +22,25 @@ class AppConfig(BaseModel):
         default=None, description="AKShare API key for data retrieval."
     )
 
+    # Auth-related configuration
+    jwt_secret: str = Field(description="Secret key for signing JWT tokens.")
+    jwt_algorithm: str = Field(default="HS256", description="JWT signing algorithm.")
+    access_token_expire_minutes: int = Field(
+        default=60 * 24, description="JWT access token expiry in minutes."
+    )
+
+    # Optional DB URL (defaults to local SQLite file)
+    database_url: str = Field(
+        default="sqlite:///./auth.db",
+        description="Database URL for user auth storage.",
+    )
+
+    # WeChat Mini Program credentials (optional if not using WeChat login)
+    wechat_appid: str | None = Field(default=None, description="WeChat Mini Program appid")
+    wechat_secret: str | None = Field(default=None, description="WeChat Mini Program secret")
+
     @field_validator(
-        "agent_host_url", "app_api_key", "openrouter_api_key", mode="before"
+        "agent_host_url", "app_api_key", "openrouter_api_key", "jwt_secret", mode="before"
     )
     def validate_required_env_vars(cls, value: str | None, info) -> str | None:
         """Validate required environment variables.

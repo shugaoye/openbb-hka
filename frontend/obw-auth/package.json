@@ -1,0 +1,33 @@
+{
+  "name": "obw-auth",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev:h5": "taro dev --type h5",
+    "dev:weapp": "taro dev --type weapp",
+    "build:h5": "taro build --type h5",
+    "build:weapp": "taro build --type weapp"
+  },
+  "dependencies": {
+    "@tarojs/components": "^4.1.7",
+    "@tarojs/helper": "^4.1.7",
+    "@tarojs/plugin-framework-react": "^4.1.7",
+    "@tarojs/react": "^4.1.7",
+    "@tarojs/router": "^4.1.7",
+    "@tarojs/runtime": "^4.1.7",
+    "@tarojs/taro": "^4.1.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tarojs/cli": "^4.1.7",
+    "@tarojs/vite-runner": "^4.1.7",
+    "@tarojs/plugin-platform-weapp": "^4.1.7",
+    "@tarojs/plugin-platform-h5": "^4.1.7",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  },
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd"
+}
