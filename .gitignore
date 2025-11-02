@@ -11,6 +11,8 @@ wheels/
 .env
 user_settings.json
 users.db
+auth.db
+sql_app.db
 
 # JavaScript
 # Logs
