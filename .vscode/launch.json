@@ -13,8 +13,7 @@
             "args": [
                 "main:app",
                 "--host", "127.0.0.1",
-                "--port", "8001",
-                "--reload"
+                "--port", "8001"
             ],
             "jinja": true
         }

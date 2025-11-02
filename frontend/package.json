@@ -1,0 +1,15 @@
+{
+  "name": "openbb-hka-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "miniapp"
+  ],
+  "scripts": {
+    "web:dev": "cd web && npm run dev",
+    "web:build": "cd web && npm run build",
+    "miniapp:dev": "cd miniapp && pnpm dev:weapp",
+    "miniapp:build": "cd miniapp && pnpm build:weapp"
+  }
+}

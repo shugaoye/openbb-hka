@@ -21,6 +21,13 @@ class AppConfig(BaseModel):
     akshare_api_key: str | None = Field(
         default=None, description="AKShare API key for data retrieval."
     )
+    jwt_secret_key: str = Field(description="Secret key for JWT token generation")
+    jwt_algorithm: str = Field(default="HS256", description="Algorithm for JWT")
+    access_token_expire_minutes: int = Field(
+        default=30, description="Minutes until access token expires"
+    )
+    wechat_app_id: str = Field(description="WeChat Mini Program AppID")
+    wechat_app_secret: str = Field(description="WeChat Mini Program AppSecret")
 
     @field_validator(
         "agent_host_url", "app_api_key", "openrouter_api_key", mode="before"
