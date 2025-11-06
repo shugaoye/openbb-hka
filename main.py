@@ -8,6 +8,7 @@ from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import auth_router
 import logging
 from mysharelib.tools import setup_logger
 
@@ -67,6 +68,11 @@ app.include_router(
     prefix="/a",
 )
 
+app.include_router(
+    auth_router,
+    prefix="",
+)
+
 @app.get("/agents.json")
 def get_agents_config():
     """Agents configuration file for the OpenBB Workspace"""
@@ -101,4 +107,3 @@ def get_widgets():
     https://github.com/OpenBB-finance/OpenBB/issues/7175
     """
     return WIDGETS
-

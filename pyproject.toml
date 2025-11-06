@@ -1,6 +1,6 @@
 [project]
 name = "openbb-hka"
-version = "2.0.0"
+version = "2.0.1"
 description = "Dashboard for your financial data in China and Hong Kong market"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -19,6 +19,9 @@ dependencies = [
     "sse-starlette>=3.0.2",
     "openai>=1.109.1",
     "magentic>=0.40.0",
+    "pyjwt>=2.8.0",
+    "python-jose>=3.3.0",
+    "passlib>=1.7.4",
 ]
 
 [dependency-groups]

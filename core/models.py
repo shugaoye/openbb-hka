@@ -15,6 +15,12 @@ class AppConfig(BaseModel):
     openrouter_api_key: str = Field(
         description="OpenRouter API key for AI functionality."
     )
+    data_folder_path: str | None = Field(
+        description="The path to the folder that will store the transaction data."
+    )
+    data_file: str = Field(
+        default="yourdata.xlsx", description="Path to your data file."
+    )
     fmp_api_key: str | None = Field(
         default=None, description="Financial Modeling Prep API key for data retrieval."
     )

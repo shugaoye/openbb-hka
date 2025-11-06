@@ -65,6 +65,38 @@ Start the application using the following command:
 uv run uvicorn main:app --reload
 ```
 
+## User Authentication
+
+This version of openbb-hka includes a user authentication system with the following features:
+
+- User registration and login
+- JWT token generation for API authentication
+- WeChat login support (partially implemented)
+- Dedicated authentication frontend
+
+### Authentication Frontend
+
+A separate React/TypeScript frontend is available in the `frontend/auth` directory for user registration and login.
+
+To run the authentication frontend:
+```bash
+cd frontend/auth
+npm install
+npm run dev
+```
+
+The frontend will be available at http://localhost:3000.
+
+### Authentication API Endpoints
+
+The backend provides the following authentication endpoints:
+
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login
+- `POST /auth/token` - OAuth2 token endpoint
+- `POST /auth/wechat-login` - WeChat login (not fully implemented)
+- `GET /auth/me` - Get current user information
+
 ## Using Docker
 
 openbb-hka can also be deployed using Docker.
