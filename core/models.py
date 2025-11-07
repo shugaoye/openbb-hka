@@ -15,11 +15,32 @@ class AppConfig(BaseModel):
     openrouter_api_key: str = Field(
         description="OpenRouter API key for AI functionality."
     )
+    data_folder_path: str | None = Field(
+        description="The path to the folder that will store the transaction data."
+    )
+    data_file: str = Field(
+        default="yourdata.xlsx", description="Path to your data file."
+    )
     fmp_api_key: str | None = Field(
         default=None, description="Financial Modeling Prep API key for data retrieval."
     )
     akshare_api_key: str | None = Field(
         default=None, description="AKShare API key for data retrieval."
+    )
+    jwt_secret_key: str = Field(
+        default="your-secret-key-change-in-production", description="Secret key for JWT token generation."
+    )
+    jwt_algorithm: str = Field(
+        default="HS256", description="Algorithm used for JWT token generation."
+    )
+    jwt_access_token_expire_minutes: int = Field(
+        default=30, description="Expiration time for access tokens in minutes."
+    )
+    wechat_app_id: str = Field(
+        default="", description="WeChat App ID for WeChat login."
+    )
+    wechat_app_secret: str = Field(
+        default="", description="WeChat App Secret for WeChat login."
     )
 
     @field_validator(

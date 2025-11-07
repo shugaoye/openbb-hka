@@ -3,16 +3,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from core.registry import register_widget, WIDGETS, add_template, TEMPLATES, load_agent_config
 from core.config import config
+from core.database import init_db
 from routes.charts import charts_router
 from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import auth_router
 import logging
 from mysharelib.tools import setup_logger
 
 setup_logger(__name__)
 logger = logging.getLogger(__name__)
+
+# 初始化数据库
+init_db()
 
 app = FastAPI(title=config.title,
     description=config.description,
@@ -20,7 +25,9 @@ app = FastAPI(title=config.title,
 
 origins = [
     "https://pro.openbb.co",
-    "http://localhost:1420"
+    "http://localhost:1420",
+    "http://localhost:3000",  # 添加前端开发服务器地址
+    "http://localhost:5173"   # 添加Vite开发服务器地址
 ]
 
 app.add_middleware(
@@ -65,6 +72,13 @@ add_template("hk")
 app.include_router(
     agents_router,
     prefix="/a",
+)
+
+# 添加认证路由
+app.include_router(
+    auth_router,
+    prefix="/auth",
+    tags=["authentication"]
 )
 
 @app.get("/agents.json")

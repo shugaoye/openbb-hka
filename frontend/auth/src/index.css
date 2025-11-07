@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #64748b;
+  --background-color: #f8fafc;
+  --text-color: #0f172a;
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  --primary-color: #60a5fa;
+  --secondary-color: #94a3b8;
+  --background-color: #0f172a;
+  --text-color: #f8fafc;
+  --border-color: #334155;
+}
+
+body {
+  @apply font-sans text-dark-900 dark:text-dark-100;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-200 dark:bg-dark-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-400 dark:bg-dark-600 rounded-full hover:bg-dark-500 dark:hover:bg-dark-500;
+}
+
+/* 表单元素样式 */
+input,
+textarea,
+select {
+  @apply border border-dark-300 dark:border-dark-700 rounded-lg px-4 py-2 bg-white dark:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all;
+}
+
+button {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+}
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* 自定义类 */
+.card {
+  @apply bg-white dark:bg-dark-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary/90 focus:ring-2 focus:ring-primary/50;
+}
+
+.btn-secondary {
+  @apply bg-dark-200 dark:bg-dark-700 text-dark-900 dark:text-dark-100 hover:bg-dark-300 dark:hover:bg-dark-600 focus:ring-2 focus:ring-dark-400/50 dark:focus:ring-dark-500/50;
+}
+
+.btn-success {
+  @apply bg-success text-white hover:bg-success/90 focus:ring-2 focus:ring-success/50;
+}
+
+.btn-danger {
+  @apply bg-danger text-white hover:bg-danger/90 focus:ring-2 focus:ring-danger/50;
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+  .card {
+    @apply p-4;
+  }
+}
+
+/* 密码强度指示器样式 */
+.password-strength-weak {
+  @apply bg-danger h-1 rounded w-1/4;
+}
+
+.password-strength-medium {
+  @apply bg-warning h-1 rounded w-2/4;
+}
+
+.password-strength-strong {
+  @apply bg-success h-1 rounded w-3/4;
+}
+
+.password-strength-very-strong {
+  @apply bg-success h-1 rounded w-full;
+}

@@ -19,6 +19,7 @@ dependencies = [
     "sse-starlette>=3.0.2",
     "openai>=1.109.1",
     "magentic>=0.40.0",
+    "sqlalchemy>=2.0.44",
 ]
 
 [dependency-groups]
