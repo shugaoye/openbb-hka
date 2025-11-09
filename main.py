@@ -8,6 +8,7 @@ from routes.tradingview import tradingview_router
 from routes.equity_cn import equity_cn_router
 from routes.equity_hk import equity_hk_router
 from routes.agents import agents_router
+from routes.auth import router as auth_router
 import logging
 from mysharelib.tools import setup_logger
 
@@ -65,6 +66,11 @@ add_template("hk")
 app.include_router(
     agents_router,
     prefix="/a",
+)
+
+app.include_router(
+    auth_router,
+    prefix="/auth",
 )
 
 @app.get("/agents.json")

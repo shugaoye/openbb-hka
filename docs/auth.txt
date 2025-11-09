@@ -1,0 +1,47 @@
+### Requirements
+
+We are extending the existing OpenBB Workspace backend—a Python/FastAPI-based system currently without user authentication—by adding login and registration functionality. The proposed approach involves developing a separate frontend to handle user authentication, while the new backend services will be integrated directly into the current OpenBB Workspace backend.
+
+**Frontend Requirements**
+
+- Develop as a Progressive Web App (PWA) compatible with both desktop and mobile environments.
+
+- Use React 18 with TypeScript and Vite as the build tool.
+
+- Adopt a UI theme consistent with OpenBB Workspace (refer to existing Plotly and Tables components for visual reference).
+
+- Utilize Radix UI components and Tailwind CSS for styling, including support for light/dark themes.
+
+- Future enhancements will include features similar to OpenBB Workspace, such as chart and table displays.
+
+Reference Components:
+
+- Plotly Component: Uses React 18 + TypeScript, Vite, Plotly.js with react-plotly.js, Tailwind CSS, and Radix UI. State is managed via React hooks.
+
+- Tables Component: Uses React 18 + TypeScript, Vite, TanStack React Table, Tailwind CSS, Radix UI, and React DnD for drag-and-drop interactions. State is managed via React hooks.
+
+**Backend Requirements**
+
+- Built with Python/FastAPI.
+
+- Use SQLite for initial development, with potential migration to PostgreSQL in the future.
+
+- Implement authentication/authorization supporting:
+
+  - WeChat Login
+
+  - Username-password login
+
+  - JWT token generation for authenticating with the OpenBB Workspace backend
+
+- Provide a post-login page where users can view and copy the JWT token for use in OpenBB Workspace.
+
+**Terminology Note**
+
+- OpenBB Workspace: A financial data analysis and visualization platform; the name is used as officially designated.
+
+- WeChat Mini Programs: Lightweight applications within the WeChat ecosystem, requiring no separate installation.
+
+- JWT token: JSON Web Token, a compact method for secure authentication between parties.
+
+- FastAPI: A high-performance Python web framework for building APIs; the name is retained as a technical identifier.

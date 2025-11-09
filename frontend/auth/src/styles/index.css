@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Small helpers */
+.dark .dark\:bg-slate-900 { background-color: #0f172a; }
